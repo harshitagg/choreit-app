@@ -1,0 +1,17 @@
+*.iml
+*.ipr
+*.iws
+.idea/
+.classpath
+.project
+bin/
+gen/
+out/
+target/
+local.properties
+choreit-app/tmp/
+classes/
+tmp/
+project.properties
+.DS_Store
+.settings
