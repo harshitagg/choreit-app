@@ -6,6 +6,7 @@
 .project
 bin/
 gen/
+gen-external-apklibs/
 out/
 target/
 local.properties
