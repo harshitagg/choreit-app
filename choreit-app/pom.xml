@@ -13,15 +13,21 @@
     <artifactId>choreit-app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>apk</packaging>
-    
+
     <name>choreit-app - Application</name>
 
     <dependencies>
         <dependency>
-            <groupId>com.google.android</groupId>
+            <groupId>android</groupId>
             <artifactId>android</artifactId>
             <version>${platform.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.android.gms</groupId>
+            <artifactId>google-play-services</artifactId>
+            <version>9</version>
+            <type>apklib</type>
         </dependency>
     </dependencies>
     <build>

@@ -14,14 +14,14 @@
     </modules>
 
     <properties>
-        <platform.version>4.1.1.4</platform.version>
-        <android.plugin.version>3.8.0</android.plugin.version>
+        <platform.version>4.1.2_r4</platform.version>
+        <android.plugin.version>3.8.1</android.plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.google.android</groupId>
+                <groupId>android</groupId>
                 <artifactId>android</artifactId>
                 <version>${platform.version}</version>
                 <scope>provided</scope>
