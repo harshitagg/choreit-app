@@ -1,10 +1,12 @@
-package com.pineapps.choreit;
+package com.pineapps.choreit.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.pineapps.choreit.R;
+import com.pineapps.choreit.activity.ChoreActivity;
 
 public class HomeActivity extends Activity {
     @Override
@@ -12,8 +14,8 @@ public class HomeActivity extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_add_chore:
-                Intent chore_intent = new Intent(this, ChoreActivity.class);
-                setContentView(R.layout.chore_activity);
+                Intent choreIntent = new Intent(this, ChoreActivity.class);
+                startActivity(choreIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

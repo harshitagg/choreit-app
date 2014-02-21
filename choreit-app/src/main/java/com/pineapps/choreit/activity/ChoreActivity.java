@@ -1,9 +1,10 @@
-package com.pineapps.choreit;
+package com.pineapps.choreit.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import com.pineapps.choreit.R;
 
 public class ChoreActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {

@@ -16,15 +16,14 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
-        <activity android:name=".HelloAndroidActivity">
-        </activity>
-        <activity android:name=".activity.LoginActivity" android:theme="@style/AppFullScreenTheme">
+        <activity android:name=".activity.LoginActivity" android:theme="@style/AppFullScreenTheme"
+                  android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".ChoreActivity"></activity>
+        <activity android:name=".activity.HomeActivity"/>
+        <activity android:name=".activity.ChoreActivity"/>
     </application>
 </manifest>
