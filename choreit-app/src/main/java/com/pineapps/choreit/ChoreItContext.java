@@ -36,7 +36,7 @@ public class ChoreItContext {
         return repository;
     }
 
-    private ChoreService choreService() {
+    public ChoreService choreService() {
         initRepository();
         if (choreService == null) {
             choreService = new ChoreService(choreRepository());
