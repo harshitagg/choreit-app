@@ -15,7 +15,7 @@ import com.pineapps.choreit.service.PredefinedChoreService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChoreActivity extends Activity {
+public class AddChoreActivity extends Activity {
     private Spinner choresSpinner;
     private ChoreService choreService;
     private List<PredefinedChore> predefinedChoreList;
@@ -24,7 +24,7 @@ public class ChoreActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chore_activity);
+        setContentView(R.layout.add_chore_activity);
 
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(R.string.action_add_chore);

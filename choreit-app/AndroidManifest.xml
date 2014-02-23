@@ -25,6 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.HomeActivity"/>
-        <activity android:name=".activity.ChoreActivity"/>
+        <activity android:name=".activity.AddChoreActivity"/>
     </application>
 </manifest>

@@ -63,7 +63,7 @@ public class LoginActivity extends Activity implements ConnectionCallbacks, OnCo
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
                 .build();
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_activity);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
 

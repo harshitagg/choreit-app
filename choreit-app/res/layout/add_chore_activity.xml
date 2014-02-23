@@ -13,13 +13,11 @@
     <Spinner android:id="@+id/chore_name"
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
-
     </Spinner>
-    <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="#ff444444"/>
 
+    <View android:layout_width="fill_parent"
+          android:layout_height="1dip"
+          android:background="#ff444444"/>
 
     <EditText android:id="@+id/chore_description"
               android:layout_width="fill_parent"
@@ -31,31 +29,19 @@
               android:minLines="6"
               android:gravity="top|left"
               android:maxLines="6"
-              android:scrollbars="vertical"
-            />
-    <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="#ff444444"/>
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+              android:scrollbars="vertical"/>
 
-    </LinearLayout>
-    <View
-            android:layout_width="1dip"
-            android:layout_height="0dip"
-            android:layout_weight="1">
-    </View>
-    <Button
-            android:id="@+id/add_chore"
+    <View android:layout_width="fill_parent"
+          android:layout_height="1dip"
+          android:background="#ff444444"/>
+
+    <View android:layout_width="1dip"
+          android:layout_height="0dip"
+          android:layout_weight="1"/>
+
+    <Button android:id="@+id/add_chore"
             android:layout_height="45dp"
             android:layout_weight="1"
             android:text="@string/action_add_chore"
-            android:layout_width="match_parent">
-
-    </Button>
-
-
+            android:layout_width="match_parent"/>
 </LinearLayout>

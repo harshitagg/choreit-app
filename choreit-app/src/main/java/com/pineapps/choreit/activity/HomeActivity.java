@@ -13,7 +13,7 @@ public class HomeActivity extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_add_chore:
-                Intent choreIntent = new Intent(this, ChoreActivity.class);
+                Intent choreIntent = new Intent(this, AddChoreActivity.class);
                 startActivity(choreIntent);
                 return true;
             default:
