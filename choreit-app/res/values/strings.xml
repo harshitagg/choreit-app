@@ -8,9 +8,5 @@
     <string name="action_add_person">Add Person</string>
     <string name="action_add_chore">Add Chore</string>
     <string name="description">Tap to Add Chore Description</string>
-    <string-array name="chore_entries">
-        <item>Vacuum</item>
-        <item>Wash Dishes</item>
-        <item>Clean Vessels</item>
-    </string-array>
+    <string name="select_chore">Select Chore</string>
 </resources>

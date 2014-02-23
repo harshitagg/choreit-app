@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.pineapps.choreit.R;
-import com.pineapps.choreit.activity.ChoreActivity;
 
 public class HomeActivity extends Activity {
     @Override

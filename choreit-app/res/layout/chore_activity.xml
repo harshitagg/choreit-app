@@ -7,31 +7,18 @@
               android:paddingBottom="@dimen/activity_vertical_margin"
               android:paddingLeft="@dimen/activity_horizontal_margin"
               android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin" android:weightSum="1">
-    <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:layout_alignParentBottom="true">
+              android:paddingTop="@dimen/activity_vertical_margin"
+              android:weightSum="1">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Select Chore:"
-                android:gravity="center_vertical"
-                android:layout_weight="1"
-                android:id="@+id/textView"/>
+    <Spinner android:id="@+id/chore_name"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
 
-        <Spinner android:id="@+id/chore_id"
-                 android:layout_width="222dp"
-                 android:layout_height="wrap_content"
-                 android:entries="@array/chore_entries"/>
-    </LinearLayout>
+    </Spinner>
     <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="#ff444444" />
-
+            android:background="#ff444444"/>
 
 
     <EditText android:id="@+id/chore_description"
@@ -49,6 +36,26 @@
     <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="#ff444444" />
+            android:background="#ff444444"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </LinearLayout>
+    <View
+            android:layout_width="1dip"
+            android:layout_height="0dip"
+            android:layout_weight="1">
+    </View>
+    <Button
+            android:id="@+id/add_chore"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:text="@string/action_add_chore"
+            android:layout_width="match_parent">
+
+    </Button>
+
 
 </LinearLayout>
