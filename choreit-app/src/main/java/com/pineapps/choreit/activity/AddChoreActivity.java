@@ -75,6 +75,7 @@ public class AddChoreActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 if (position == 0) {
+                    descriptionEditText.setText("");
                     return;
                 }
                 descriptionEditText.setText(predefinedChoreList.get(position - 1).description());
