@@ -39,6 +39,11 @@ public class ChoreRepository extends ChoreItRepository {
         return readAllChores(cursor);
     }
 
+    public void deleteAllChores() {
+        SQLiteDatabase db = masterRepository.getWritableDatabase();
+        db.delete(CHORE_TABLE_NAME, null, null);
+    }
+
     private List<Chore> readAllChores(Cursor cursor) {
         List<Chore> chores = new ArrayList<Chore>();
 
@@ -53,10 +58,5 @@ public class ChoreRepository extends ChoreItRepository {
         }
         cursor.close();
         return chores;
-    }
-
-    public void deleteAllChores() {
-        SQLiteDatabase db = masterRepository.getWritableDatabase();
-        db.delete(CHORE_TABLE_NAME, null, null);
     }
 }

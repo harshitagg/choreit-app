@@ -42,7 +42,7 @@ public class AddChoreActivity extends Activity {
 
     private void initPredefinedChores(ChoreItContext choreItContext) {
         PredefinedChoreService predefinedChoreService = choreItContext.predefinedChoreService();
-        predefinedChoreList = predefinedChoreService.getAllPredifinedChores();
+        predefinedChoreList = predefinedChoreService.getAllPredefinedChores();
         predefinedChoreTitleList = new ArrayList<String>();
         predefinedChoreTitleList.add("Select Chore");
         for (PredefinedChore predefinedChore : predefinedChoreList) {
@@ -85,7 +85,6 @@ public class AddChoreActivity extends Activity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }

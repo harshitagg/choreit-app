@@ -12,11 +12,11 @@ public class PredefinedChoreService {
         this.predefinedChoreRepository = predefinedChoreRepository;
     }
 
-    public void addChore(String name, String description) {
+    public void addPredefinedChore(String name, String description) {
         predefinedChoreRepository.insert(new PredefinedChore(name, description));
     }
 
-    public List<PredefinedChore> getAllPredifinedChores() {
+    public List<PredefinedChore> getAllPredefinedChores() {
         return predefinedChoreRepository.getAll();
     }
 }
