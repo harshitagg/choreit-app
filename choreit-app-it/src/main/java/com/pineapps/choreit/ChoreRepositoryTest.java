@@ -10,7 +10,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class ChoreItRepositoryTest extends AndroidTestCase {
+public class ChoreRepositoryTest extends AndroidTestCase {
     private ChoreRepository choreRepository;
 
     @Override
