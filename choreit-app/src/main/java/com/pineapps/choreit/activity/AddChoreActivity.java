@@ -52,6 +52,7 @@ public class AddChoreActivity extends Activity {
 
     private void initAddChoreButton() {
         Button addChoreButton = (Button) findViewById(R.id.add_chore);
+        final Activity activity = this;
         addChoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +63,7 @@ public class AddChoreActivity extends Activity {
                 choreService.addChore(String.valueOf(choresSpinner.getSelectedItem()),
                         String.valueOf(descriptionEditText.getText()));
                 Toast.makeText(getApplicationContext(), "Chore Created", Toast.LENGTH_SHORT).show();
+                activity.finish();
             }
         });
     }
