@@ -17,14 +17,14 @@
             android:theme="@style/AppTheme"
             android:name=".ChoreItApplication">
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
-        <activity android:name=".activity.LoginActivity" android:theme="@style/AppFullScreenTheme"
+        <activity android:name=".view.activity.LoginActivity" android:theme="@style/AppFullScreenTheme"
                   android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity"/>
-        <activity android:name=".activity.AddChoreActivity"/>
+        <activity android:name=".view.activity.HomeActivity"/>
+        <activity android:name=".view.activity.AddChoreActivity"/>
     </application>
 </manifest>

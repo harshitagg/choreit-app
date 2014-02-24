@@ -1,4 +1,4 @@
-package com.pineapps.choreit.activity;
+package com.pineapps.choreit.view.activity;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.pineapps.choreit.activity;
+package com.pineapps.choreit.view.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -15,7 +15,7 @@ import com.pineapps.choreit.service.PredefinedChoreService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.pineapps.choreit.activity.HomeActivity.ADD_CHORE;
+import static com.pineapps.choreit.view.activity.HomeActivity.ADD_CHORE;
 
 public class AddChoreActivity extends Activity {
     private Spinner choresSpinner;

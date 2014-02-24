@@ -1,4 +1,4 @@
-package com.pineapps.choreit.activity;
+package com.pineapps.choreit.view.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import com.pineapps.choreit.ChoreItContext;
 import com.pineapps.choreit.R;
 import com.pineapps.choreit.domain.Chore;
 import com.pineapps.choreit.service.ChoreService;
-import com.pineapps.choreit.view.ChoreListAdapter;
+import com.pineapps.choreit.view.adapter.ChoreListAdapter;
 
 import java.util.List;
 

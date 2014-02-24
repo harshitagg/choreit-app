@@ -1,4 +1,4 @@
-package com.pineapps.choreit.view;
+package com.pineapps.choreit.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
