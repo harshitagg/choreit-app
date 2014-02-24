@@ -5,9 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import com.pineapps.choreit.R;
+import com.pineapps.choreit.domain.Chore;
+import com.pineapps.choreit.view.ListAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends Activity {
+
+    private ListView viewChores;
+    private List<Chore> tempChoreList;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -24,6 +34,15 @@ public class HomeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+        Chore c1 = new Chore("Laundry1","Do Laundry1");
+        Chore c2 = new Chore("Laundry2","Do Laundry2");
+        Chore c3 = new Chore("Laundry3","Do Laundry3");
+        tempChoreList = new ArrayList<Chore>();
+        tempChoreList.add(c1);
+        tempChoreList.add(c2);
+        tempChoreList.add(c3);
+        viewChores = (ListView) findViewById(R.id.listview);
+        viewChores.setAdapter(new ListAdapter(this,tempChoreList));
     }
 
     @Override
