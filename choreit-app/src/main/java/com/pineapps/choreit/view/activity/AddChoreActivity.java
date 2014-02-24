@@ -23,6 +23,8 @@ public class AddChoreActivity extends Activity {
     private List<PredefinedChore> predefinedChoreList;
     private List<String> predefinedChoreTitleList;
     private EditText descriptionEditText;
+    private EditText newChoreTitle;
+    private PredefinedChoreService predefinedChoreService;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class AddChoreActivity extends Activity {
         ChoreItContext choreItContext = ChoreItContext.getInstance();
 
         descriptionEditText = (EditText) findViewById(R.id.chore_description);
-
+        newChoreTitle = (EditText) findViewById(R.id.chore_name_new);
         choreService = choreItContext.choreService();
 
         initPredefinedChores(choreItContext);
@@ -43,13 +45,14 @@ public class AddChoreActivity extends Activity {
     }
 
     private void initPredefinedChores(ChoreItContext choreItContext) {
-        PredefinedChoreService predefinedChoreService = choreItContext.predefinedChoreService();
+        predefinedChoreService = choreItContext.predefinedChoreService();
         predefinedChoreList = predefinedChoreService.getAllPredefinedChores();
         predefinedChoreTitleList = new ArrayList<String>();
         predefinedChoreTitleList.add("Select Chore");
         for (PredefinedChore predefinedChore : predefinedChoreList) {
             predefinedChoreTitleList.add(predefinedChore.title());
         }
+        predefinedChoreTitleList.add("Add New Preset");
     }
 
     private void initAddChoreButton() {
@@ -58,12 +61,29 @@ public class AddChoreActivity extends Activity {
         addChoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (choresSpinner.getSelectedItem().toString().equals("Select Chore")) {
-                    Toast.makeText(getApplicationContext(), "Please Enter the Chore Details", Toast.LENGTH_SHORT).show();
+                if (choresSpinner.getVisibility() == View.GONE) {
+                    if (newChoreTitle.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "Please Enter the Chore Title", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (descriptionEditText.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "Please Enter the Chore Description", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        choreService.addChore(String.valueOf(newChoreTitle.getText()),
+                                String.valueOf(descriptionEditText.getText()));
+                        predefinedChoreService.addPredefinedChore(String.valueOf(newChoreTitle.getText()),
+                                String.valueOf(descriptionEditText.getText()));
+                    }
+                } else if (choresSpinner.getSelectedItem().toString().equals("Select Chore")) {
+                    Toast.makeText(getApplicationContext(), "Please Select the Chore Title", Toast.LENGTH_SHORT).show();
                     return;
+                } else if (descriptionEditText.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Please Enter the Chore Description", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    choreService.addChore(String.valueOf(choresSpinner.getSelectedItem()),
+                            String.valueOf(descriptionEditText.getText()));
                 }
-                choreService.addChore(String.valueOf(choresSpinner.getSelectedItem()),
-                        String.valueOf(descriptionEditText.getText()));
                 Toast.makeText(getApplicationContext(), "Chore Created", Toast.LENGTH_SHORT).show();
                 activity.setResult(ADD_CHORE);
                 activity.finish();
@@ -81,6 +101,11 @@ public class AddChoreActivity extends Activity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 if (position == 0) {
                     descriptionEditText.setText("");
+                    return;
+                } else if (position == (predefinedChoreTitleList.size() - 1)) {
+                    Toast.makeText(getApplicationContext(), "Testing New Preset Option", Toast.LENGTH_SHORT).show();
+                    choresSpinner.setVisibility(View.GONE);
+                    newChoreTitle.setVisibility(View.VISIBLE);
                     return;
                 }
                 descriptionEditText.setText(predefinedChoreList.get(position - 1).description());

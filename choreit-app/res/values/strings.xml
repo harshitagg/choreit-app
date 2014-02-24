@@ -7,6 +7,7 @@
     <string name="action_add_group">Add Group</string>
     <string name="action_add_person">Add Person</string>
     <string name="action_add_chore">Add Chore</string>
-    <string name="description">Tap to Add Chore Description</string>
+    <string name="chore_add_hint_description">Add Chore Description Here</string>
+    <string name="chore_add_hint_name">Add Chore Name Here</string>
     <string name="select_chore">Select Chore</string>
 </resources>
