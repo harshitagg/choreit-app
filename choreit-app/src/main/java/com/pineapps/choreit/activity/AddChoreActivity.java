@@ -15,6 +15,8 @@ import com.pineapps.choreit.service.PredefinedChoreService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pineapps.choreit.activity.HomeActivity.ADD_CHORE;
+
 public class AddChoreActivity extends Activity {
     private Spinner choresSpinner;
     private ChoreService choreService;
@@ -63,6 +65,7 @@ public class AddChoreActivity extends Activity {
                 choreService.addChore(String.valueOf(choresSpinner.getSelectedItem()),
                         String.valueOf(descriptionEditText.getText()));
                 Toast.makeText(getApplicationContext(), "Chore Created", Toast.LENGTH_SHORT).show();
+                activity.setResult(ADD_CHORE);
                 activity.finish();
             }
         });

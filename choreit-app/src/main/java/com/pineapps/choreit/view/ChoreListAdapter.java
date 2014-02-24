@@ -11,11 +11,11 @@ import com.pineapps.choreit.domain.Chore;
 
 import java.util.List;
 
-public class ListAdapter extends BaseAdapter {
+public class ChoreListAdapter extends BaseAdapter {
     private List<Chore> choreList;
     private LayoutInflater layoutInflater;
 
-    public ListAdapter(Context context, List<Chore> choreList) {
+    public ChoreListAdapter(Context context, List<Chore> choreList) {
         layoutInflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.choreList = choreList;
@@ -38,12 +38,16 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = layoutInflater.inflate(R.layout.list_layout, null);
+        View view = layoutInflater.inflate(R.layout.chore_list_item_layout, null);
 
         TextView choreName = (TextView) view.findViewById(R.id.chore_name_list_item);
         TextView choreDescription = (TextView) view.findViewById(R.id.chore_description_list_item);
         choreName.setText(choreList.get(position).title());
         choreDescription.setText(choreList.get(position).description());
         return view;
+    }
+
+    public void setChoreList(List<Chore> choreList) {
+        this.choreList = choreList;
     }
 }

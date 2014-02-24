@@ -14,12 +14,10 @@
     <TextView android:id="@+id/chore_name_list_item"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:layout_above="@id/chore_description"
               android:layout_alignParentRight="true"
               android:layout_alignParentTop="true"
               android:layout_alignWithParentIfMissing="true"
               android:layout_toRightOf="@id/chore_icon_list_item"
-              android:contentDescription="TODO"
               android:gravity="center_vertical"
               android:textSize="16sp"/>
 
@@ -28,9 +26,9 @@
               android:layout_height="26dip"
               android:layout_alignParentBottom="true"
               android:layout_alignParentRight="true"
+              android:layout_below="@id/chore_name_list_item"
               android:layout_toRightOf="@id/chore_icon_list_item"
               android:ellipsize="marquee"
-              android:text="Description"
               android:singleLine="true"
               android:textSize="12sp"/>
 
