@@ -2,6 +2,7 @@ package com.pineapps.choreit.view.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,12 +14,14 @@ import com.pineapps.choreit.domain.PredefinedChore;
 import com.pineapps.choreit.service.ChoreService;
 import com.pineapps.choreit.service.PredefinedChoreService;
 import com.pineapps.choreit.view.ChoreIconMap;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import static android.view.View.OnClickListener;
 import static com.pineapps.choreit.view.activity.HomeActivity.ADD_CHORE;
 import static java.lang.String.valueOf;
 
@@ -32,6 +35,9 @@ public class AddChoreActivity extends Activity {
     private PredefinedChoreService predefinedChoreService;
     private ImageView choreIcon;
     private ChoreIconMap choreIconMap;
+    private TextView choreDueDateTextView;
+    private LocalDate nextDay;
+    private DateTimeFormatter dateTimeFormatter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +51,15 @@ public class AddChoreActivity extends Activity {
         descriptionEditText = (EditText) findViewById(R.id.chore_description);
         newChoreTitle = (EditText) findViewById(R.id.chore_name_new);
         choreIcon = (ImageView) findViewById(R.id.chore_icon);
+        choreDueDateTextView = (TextView) findViewById(R.id.chore_due_date);
+
         choreService = choreItContext.choreService();
         choreIconMap = choreItContext.choreIconMap();
 
         initPredefinedChores(choreItContext);
         initChoreSpinner();
         initAddChoreButton();
+        initChoreDueDateTextView();
     }
 
     private void initPredefinedChores(ChoreItContext choreItContext) {
@@ -67,7 +76,7 @@ public class AddChoreActivity extends Activity {
     private void initAddChoreButton() {
         Button addChoreButton = (Button) findViewById(R.id.add_chore);
         final Activity activity = this;
-        addChoreButton.setOnClickListener(new View.OnClickListener() {
+        addChoreButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (choresSpinner.getVisibility() == View.GONE) {
@@ -78,7 +87,8 @@ public class AddChoreActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "Please Enter the Chore Description", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        choreService.addChore(valueOf(newChoreTitle.getText()), valueOf(descriptionEditText.getText()));
+                        choreService.addChore(valueOf(newChoreTitle.getText()), valueOf(descriptionEditText.getText()),
+                                nextDay.toString());
                         predefinedChoreService.addPredefinedChore(valueOf(newChoreTitle.getText()),
                                 valueOf(descriptionEditText.getText()));
                     }
@@ -90,11 +100,24 @@ public class AddChoreActivity extends Activity {
                     return;
                 } else {
                     choreService.addChore(valueOf(choresSpinner.getSelectedItem()),
-                            valueOf(descriptionEditText.getText()));
+                            valueOf(descriptionEditText.getText()), nextDay.toString());
                 }
                 Toast.makeText(getApplicationContext(), "Chore Created", Toast.LENGTH_SHORT).show();
                 activity.setResult(ADD_CHORE);
                 activity.finish();
+            }
+        });
+    }
+
+    private void initChoreDueDateTextView() {
+        nextDay = LocalDate.now().plusDays(1);
+        dateTimeFormatter = DateTimeFormat.forPattern("MMM d, y");
+        choreDueDateTextView.setText("Due on: " + dateTimeFormatter.print(nextDay));
+
+        choreDueDateTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog(view);
             }
         });
     }
@@ -148,5 +171,17 @@ public class AddChoreActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.spinner_menu, menu);
         return true;
+    }
+
+    public void showDatePickerDialog(View view) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                nextDay = new LocalDate(year, month + 1, day);
+                choreDueDateTextView.setText("Due on: " + dateTimeFormatter.print(nextDay));
+            }
+        }, nextDay.getYear(), nextDay.getMonthOfYear() - 1, nextDay.getDayOfMonth());
+
+        datePickerDialog.show();
     }
 }

@@ -11,19 +11,25 @@ import com.pineapps.choreit.ChoreItContext;
 import com.pineapps.choreit.R;
 import com.pineapps.choreit.domain.Chore;
 import com.pineapps.choreit.view.ChoreIconMap;
+import org.joda.time.LocalDate;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.List;
+
+import static org.joda.time.LocalDate.parse;
 
 public class ChoreListAdapter extends BaseAdapter {
     private ChoreIconMap choreIconMap;
     private List<Chore> choreList;
     private LayoutInflater layoutInflater;
+    private PrettyTime prettyTime;
 
     public ChoreListAdapter(Context context, List<Chore> choreList) {
         layoutInflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.choreList = choreList;
         this.choreIconMap = ChoreItContext.getInstance().choreIconMap();
+        prettyTime = new PrettyTime();
     }
 
     @Override
@@ -46,13 +52,15 @@ public class ChoreListAdapter extends BaseAdapter {
         View view = layoutInflater.inflate(R.layout.chore_list_item_layout, null);
 
         TextView choreName = (TextView) view.findViewById(R.id.chore_name_list_item);
+        TextView choreDueDate = (TextView) view.findViewById(R.id.chore_due_date_list_item);
         TextView choreDescription = (TextView) view.findViewById(R.id.chore_description_list_item);
         ImageView choreIcon = (ImageView) view.findViewById(R.id.chore_icon_list_item);
 
-        String title = choreList.get(position).title();
-        choreName.setText(title);
-        choreDescription.setText(choreList.get(position).description());
-        choreIcon.setImageResource(choreIconMap.get(title));
+        Chore chore = choreList.get(position);
+        choreName.setText(chore.title());
+        choreDueDate.setText(prettyTime.format(parse(chore.dueDate()).plusDays(1).toDate()));
+        choreDescription.setText(chore.description());
+        choreIcon.setImageResource(choreIconMap.get(chore.title()));
         return view;
     }
 

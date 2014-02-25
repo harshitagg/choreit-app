@@ -28,7 +28,7 @@ public class HomeActivity extends Activity {
         choreService = context.choreService();
 
         ListView viewChores = (ListView) findViewById(R.id.listview);
-        List<Chore> choreList = choreService.getAllChores();
+        List<Chore> choreList = choreService.getAllChoresSortedByDueDate();
         choreListAdapter = new ChoreListAdapter(this, choreList);
         viewChores.setAdapter(choreListAdapter);
     }
@@ -61,7 +61,7 @@ public class HomeActivity extends Activity {
     }
 
     private void updateChoreList() {
-        List<Chore> choreList = choreService.getAllChores();
+        List<Chore> choreList = choreService.getAllChoresSortedByDueDate();
         choreListAdapter.setChoreList(choreList);
         choreListAdapter.notifyDataSetChanged();
     }

@@ -13,10 +13,12 @@ public class ChoreRepository extends ChoreItRepository {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_DUE_DATE = "due_date";
 
-    public static final String[] CHORE_COLUMNS = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DESCRIPTION};
+    public static final String[] CHORE_COLUMNS = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DESCRIPTION, COLUMN_DUE_DATE};
 
-    public static final String CHORE_SQL = "CREATE TABLE " + CHORE_TABLE_NAME + "(" + COLUMN_ID + " VARCHAR, " + COLUMN_TITLE + " VARCHAR, " + COLUMN_DESCRIPTION + " VARCHAR)";
+    public static final String CHORE_SQL = "CREATE TABLE " + CHORE_TABLE_NAME + "(" + COLUMN_ID + " VARCHAR, " +
+            COLUMN_TITLE + " VARCHAR, " + COLUMN_DESCRIPTION + " VARCHAR, " + COLUMN_DUE_DATE + " VARCHAR)";
 
     @Override
     protected void onCreate(SQLiteDatabase database) {
@@ -28,6 +30,7 @@ public class ChoreRepository extends ChoreItRepository {
         values.put(COLUMN_ID, chore.id());
         values.put(COLUMN_TITLE, chore.title());
         values.put(COLUMN_DESCRIPTION, chore.description());
+        values.put(COLUMN_DUE_DATE, chore.dueDate());
 
         SQLiteDatabase db = masterRepository.getWritableDatabase();
         db.insert(CHORE_TABLE_NAME, null, values);
@@ -52,7 +55,8 @@ public class ChoreRepository extends ChoreItRepository {
             chores.add(new Chore(
                     cursor.getString(cursor.getColumnIndex(COLUMN_ID)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION))
+                    cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_DUE_DATE))
             ));
             cursor.moveToNext();
         }

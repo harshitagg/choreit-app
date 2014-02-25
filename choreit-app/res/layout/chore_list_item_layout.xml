@@ -8,25 +8,41 @@
                android:layout_height="fill_parent"
                android:layout_alignParentBottom="true"
                android:layout_alignParentTop="true"
+               android:layout_alignParentLeft="true"
                android:layout_marginRight="6dip"
                android:src="@drawable/general"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/title_due_date_container"
+            android:layout_width="fill_parent"
+            android:layout_toRightOf="@id/chore_icon_list_item"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:gravity="center_vertical">
 
-    <TextView android:id="@+id/chore_name_list_item"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_alignParentTop="true"
-              android:layout_alignWithParentIfMissing="true"
-              android:layout_toRightOf="@id/chore_icon_list_item"
-              android:gravity="center_vertical"
-              android:textSize="16sp"/>
+        <TextView android:id="@+id/chore_name_list_item"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="title"
+                  android:textSize="16sp"/>
+
+        <TextView android:id="@+id/chore_due_date_list_item"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="right"
+                  android:text="date"
+                  android:textSize="12sp"/>
+    </LinearLayout>
+
 
     <TextView android:id="@+id/chore_description_list_item"
               android:layout_width="fill_parent"
               android:layout_height="24dp"
               android:layout_alignParentBottom="true"
               android:layout_alignParentRight="true"
-              android:layout_below="@id/chore_name_list_item"
+              android:layout_below="@id/title_due_date_container"
               android:layout_toRightOf="@id/chore_icon_list_item"
               android:ellipsize="marquee"
               android:singleLine="true"

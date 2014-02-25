@@ -21,17 +21,17 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldSaveChore() throws Exception {
-        choreRepository.insert(new Chore("id", "test", "description"));
+        choreRepository.insert(new Chore("id", "test", "description", "2014-01-01"));
 
         List<Chore> chores = choreRepository.getAll();
-        assertEquals(asList(new Chore("id", "test", "description")), chores);
+        assertEquals(asList(new Chore("id", "test", "description", "2014-01-01")), chores);
     }
 
     public void testShouldFetchAllChores() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1");
-        Chore chore2 = new Chore("id 2", "title 2", "description 2");
-        Chore chore3 = new Chore("id 3", "title 3", "description 3");
-        Chore chore4 = new Chore("id 4", "title 4", "description 4");
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01");
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01");
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01");
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01");
         choreRepository.insert(chore1);
         choreRepository.insert(chore2);
         choreRepository.insert(chore3);
