@@ -5,13 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.pineapps.choreit.ChoreItContext;
 import com.pineapps.choreit.R;
 import com.pineapps.choreit.domain.Chore;
+import com.pineapps.choreit.view.ChoreIconMap;
 
 import java.util.List;
 
 public class ChoreListAdapter extends BaseAdapter {
+    private ChoreIconMap choreIconMap;
     private List<Chore> choreList;
     private LayoutInflater layoutInflater;
 
@@ -19,6 +23,7 @@ public class ChoreListAdapter extends BaseAdapter {
         layoutInflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.choreList = choreList;
+        this.choreIconMap = ChoreItContext.getInstance().choreIconMap();
     }
 
     @Override
@@ -42,8 +47,12 @@ public class ChoreListAdapter extends BaseAdapter {
 
         TextView choreName = (TextView) view.findViewById(R.id.chore_name_list_item);
         TextView choreDescription = (TextView) view.findViewById(R.id.chore_description_list_item);
-        choreName.setText(choreList.get(position).title());
+        ImageView choreIcon = (ImageView) view.findViewById(R.id.chore_icon_list_item);
+
+        String title = choreList.get(position).title();
+        choreName.setText(title);
         choreDescription.setText(choreList.get(position).description());
+        choreIcon.setImageResource(choreIconMap.get(title));
         return view;
     }
 

@@ -7,6 +7,7 @@ import com.pineapps.choreit.repository.PredefinedChoreRepository;
 import com.pineapps.choreit.repository.Repository;
 import com.pineapps.choreit.service.ChoreService;
 import com.pineapps.choreit.service.PredefinedChoreService;
+import com.pineapps.choreit.view.ChoreIconMap;
 
 public class ChoreItContext {
     private static ChoreItContext choreItContext;
@@ -20,6 +21,8 @@ public class ChoreItContext {
     private ChoreService choreService;
     private PredefinedChoreService predefinedChoreService;
 
+    private ChoreIconMap choreIconMap;
+
     public static ChoreItContext getInstance() {
         if (choreItContext == null) {
             choreItContext = new ChoreItContext();
@@ -31,6 +34,14 @@ public class ChoreItContext {
     public ChoreItContext updateApplicationContext(Context context) {
         this.context = context;
         return this;
+    }
+
+    public ChoreIconMap choreIconMap() {
+        if (choreIconMap == null) {
+            choreIconMap = new ChoreIconMap();
+        }
+
+        return choreIconMap;
     }
 
     public Repository initRepository() {

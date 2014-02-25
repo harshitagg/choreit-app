@@ -10,39 +10,48 @@
               android:paddingTop="@dimen/activity_vertical_margin"
               android:weightSum="1">
 
-    <Spinner android:id="@+id/chore_name"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
-    </Spinner>
 
-    <EditText
+    <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/chore_add_hint_name"
-            android:textColorHint="#ff444444"
-            android:visibility="gone"
-            android:id="@+id/chore_name_new"/>
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/chore_icon"
+                android:layout_weight="1"
+                android:src="@drawable/general"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp">
+            <Spinner android:id="@+id/chore_name"
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content">
+            </Spinner>
+            <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/chore_add_hint_name"
+                    android:textColorHint="#ff444444"
+                    android:visibility="gone"
+                    android:id="@+id/chore_name_new"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"/>
+            <EditText android:id="@+id/chore_description"
+                      android:layout_width="fill_parent"
+                      android:layout_height="84dp"
+                      android:hint="@string/chore_add_hint_description"
+                      android:textColorHint="#ff444444"
+                      android:inputType="textMultiLine"
+                      android:lines="2"
+                      android:maxLines="2"
+                      android:scrollbars="vertical"/>
+        </LinearLayout>
+    </LinearLayout>
 
-    <View android:layout_width="fill_parent"
-          android:layout_height="1dip"
-          android:background="#ff444444"/>
-
-
-    <EditText android:id="@+id/chore_description"
-              android:layout_width="fill_parent"
-              android:layout_height="84dp"
-              android:hint="@string/chore_add_hint_description"
-              android:textColorHint="#ff444444"
-              android:inputType="textMultiLine"
-              android:lines="8"
-              android:minLines="6"
-              android:gravity="top|left"
-              android:maxLines="6"
-              android:scrollbars="vertical"/>
-
-    <View android:layout_width="fill_parent"
-          android:layout_height="1dip"
-          android:background="#ff444444"/>
 
     <View android:layout_width="1dip"
           android:layout_height="0dip"

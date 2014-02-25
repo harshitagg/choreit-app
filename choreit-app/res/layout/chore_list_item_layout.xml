@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
-                android:padding="6dip">
+                android:padding="6dp">
 
     <ImageView android:id="@+id/chore_icon_list_item"
                android:layout_width="wrap_content"
@@ -9,7 +9,7 @@
                android:layout_alignParentBottom="true"
                android:layout_alignParentTop="true"
                android:layout_marginRight="6dip"
-               android:src="@drawable/ic_launcher"/>
+               android:src="@drawable/general"/>
 
     <TextView android:id="@+id/chore_name_list_item"
               android:layout_width="fill_parent"
@@ -23,7 +23,7 @@
 
     <TextView android:id="@+id/chore_description_list_item"
               android:layout_width="fill_parent"
-              android:layout_height="26dip"
+              android:layout_height="24dp"
               android:layout_alignParentBottom="true"
               android:layout_alignParentRight="true"
               android:layout_below="@id/chore_name_list_item"

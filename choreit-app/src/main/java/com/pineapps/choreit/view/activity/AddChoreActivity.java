@@ -2,7 +2,6 @@ package com.pineapps.choreit.view.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,11 +12,15 @@ import com.pineapps.choreit.R;
 import com.pineapps.choreit.domain.PredefinedChore;
 import com.pineapps.choreit.service.ChoreService;
 import com.pineapps.choreit.service.PredefinedChoreService;
+import com.pineapps.choreit.view.ChoreIconMap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.pineapps.choreit.view.activity.HomeActivity.ADD_CHORE;
+import static java.lang.String.valueOf;
 
 public class AddChoreActivity extends Activity {
     private Spinner choresSpinner;
@@ -27,6 +30,8 @@ public class AddChoreActivity extends Activity {
     private EditText descriptionEditText;
     private EditText newChoreTitle;
     private PredefinedChoreService predefinedChoreService;
+    private ImageView choreIcon;
+    private ChoreIconMap choreIconMap;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +44,9 @@ public class AddChoreActivity extends Activity {
 
         descriptionEditText = (EditText) findViewById(R.id.chore_description);
         newChoreTitle = (EditText) findViewById(R.id.chore_name_new);
+        choreIcon = (ImageView) findViewById(R.id.chore_icon);
         choreService = choreItContext.choreService();
+        choreIconMap = choreItContext.choreIconMap();
 
         initPredefinedChores(choreItContext);
         initChoreSpinner();
@@ -71,10 +78,9 @@ public class AddChoreActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "Please Enter the Chore Description", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        choreService.addChore(String.valueOf(newChoreTitle.getText()),
-                                String.valueOf(descriptionEditText.getText()));
-                        predefinedChoreService.addPredefinedChore(String.valueOf(newChoreTitle.getText()),
-                                String.valueOf(descriptionEditText.getText()));
+                        choreService.addChore(valueOf(newChoreTitle.getText()), valueOf(descriptionEditText.getText()));
+                        predefinedChoreService.addPredefinedChore(valueOf(newChoreTitle.getText()),
+                                valueOf(descriptionEditText.getText()));
                     }
                 } else if (choresSpinner.getSelectedItem().toString().equals("Select Chore")) {
                     Toast.makeText(getApplicationContext(), "Please Select the Chore Title", Toast.LENGTH_SHORT).show();
@@ -83,8 +89,8 @@ public class AddChoreActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Please Enter the Chore Description", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    choreService.addChore(String.valueOf(choresSpinner.getSelectedItem()),
-                            String.valueOf(descriptionEditText.getText()));
+                    choreService.addChore(valueOf(choresSpinner.getSelectedItem()),
+                            valueOf(descriptionEditText.getText()));
                 }
                 Toast.makeText(getApplicationContext(), "Chore Created", Toast.LENGTH_SHORT).show();
                 activity.setResult(ADD_CHORE);
@@ -116,13 +122,20 @@ public class AddChoreActivity extends Activity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 if (position == 0) {
                     descriptionEditText.setText("");
+                    choreIcon.setImageResource(R.drawable.general);
                     return;
                 } else if (position == (predefinedChoreTitleList.size() - 1)) {
                     choresSpinner.setVisibility(View.GONE);
                     newChoreTitle.setVisibility(View.VISIBLE);
+                    newChoreTitle.requestFocus();
+                    descriptionEditText.setText("");
+                    choreIcon.setImageResource(R.drawable.general);
                     return;
                 }
-                descriptionEditText.setText(predefinedChoreList.get(position - 1).description());
+
+                PredefinedChore predefinedChore = predefinedChoreList.get(position - 1);
+                descriptionEditText.setText(predefinedChore.description());
+                choreIcon.setImageResource(choreIconMap.get(predefinedChore.title()));
             }
 
             @Override

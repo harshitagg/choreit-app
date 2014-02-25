@@ -35,8 +35,9 @@ public class Repository extends SQLiteOpenHelper {
     }
 
     private void createPredefinedChores(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO " + PREDEFINED_CHORE_TABLE_NAME + " values ('1','Vacuuming','Clean carpet')");
+        db.execSQL("INSERT INTO " + PREDEFINED_CHORE_TABLE_NAME + " values ('1','Cleaning','Clean the house')");
         db.execSQL("INSERT INTO " + PREDEFINED_CHORE_TABLE_NAME + " values ('2','Dish washing','Wash all utensils')");
         db.execSQL("INSERT INTO " + PREDEFINED_CHORE_TABLE_NAME + " values ('3','Laundry','Put clothes for washing')");
+        db.execSQL("INSERT INTO " + PREDEFINED_CHORE_TABLE_NAME + " values ('4','Dusting','Dust the furniture')");
     }
 }
