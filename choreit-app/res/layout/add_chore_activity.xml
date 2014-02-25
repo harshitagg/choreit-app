@@ -15,18 +15,18 @@
              android:layout_height="wrap_content">
     </Spinner>
 
-    <View android:layout_width="fill_parent"
-          android:layout_height="1dip"
-          android:background="#ff444444"/>
-
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/chore_add_hint_name"
             android:textColorHint="#ff444444"
             android:visibility="gone"
-            android:id="@+id/chore_name_new"
-            android:layout_weight="0.14"/>
+            android:id="@+id/chore_name_new"/>
+
+    <View android:layout_width="fill_parent"
+          android:layout_height="1dip"
+          android:background="#ff444444"/>
+
 
     <EditText android:id="@+id/chore_description"
               android:layout_width="fill_parent"
