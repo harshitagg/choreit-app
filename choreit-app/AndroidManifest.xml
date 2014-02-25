@@ -25,6 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.HomeActivity"/>
-        <activity android:name=".view.activity.AddChoreActivity"/>
+        <activity android:name=".view.activity.AddChoreActivity" android:windowSoftInputMode="stateHidden"/>
     </application>
 </manifest>
