@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+            android:id="@+id/reset_spinner"
+            android:orderInCategory="100"
+            android:showAsAction="never"
+            android:title="@string/reset_spinner_option"/>
+</menu>

@@ -2,8 +2,10 @@ package com.pineapps.choreit.view.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.pineapps.choreit.ChoreItContext;
@@ -91,6 +93,19 @@ public class AddChoreActivity extends Activity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reset_spinner:
+                newChoreTitle.setVisibility(View.GONE);
+                choresSpinner.setVisibility(View.VISIBLE);
+                choresSpinner.setSelection(0);
+                descriptionEditText.setText("");
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void initChoreSpinner() {
         choresSpinner = (Spinner) findViewById(R.id.chore_name);
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
@@ -103,7 +118,6 @@ public class AddChoreActivity extends Activity {
                     descriptionEditText.setText("");
                     return;
                 } else if (position == (predefinedChoreTitleList.size() - 1)) {
-                    Toast.makeText(getApplicationContext(), "Testing New Preset Option", Toast.LENGTH_SHORT).show();
                     choresSpinner.setVisibility(View.GONE);
                     newChoreTitle.setVisibility(View.VISIBLE);
                     return;
@@ -119,7 +133,7 @@ public class AddChoreActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.spinner_menu, menu);
         return true;
     }
 }

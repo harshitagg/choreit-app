@@ -10,4 +10,5 @@
     <string name="chore_add_hint_description">Add Chore Description Here</string>
     <string name="chore_add_hint_name">Add Chore Name Here</string>
     <string name="select_chore">Select Chore</string>
+    <string name="reset_spinner_option">Reset</string>
 </resources>
