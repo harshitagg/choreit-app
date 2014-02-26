@@ -12,43 +12,30 @@
               android:background="#ffffff">
 
 
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/chore_icon"
-                android:layout_weight="1"
-                android:src="@drawable/general"/>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp">
-            <Spinner android:id="@+id/chore_name"
-                     android:layout_width="fill_parent"
-                     android:layout_height="wrap_content">
-            </Spinner>
-            <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/chore_add_hint_name"
-                    android:textColorHint="#797979"
-                    android:visibility="gone"
-                    android:id="@+id/chore_name_new"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="5dp"/>
-            <EditText android:id="@+id/chore_description"
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:id="@+id/chore_icon_detail"
+                   android:layout_weight="1"
+                   android:src="@drawable/general"/>
+        <LinearLayout android:orientation="vertical"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:layout_marginLeft="10dp">
+            <TextView android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="@string/chore_add_hint_name"
+                      android:id="@+id/chore_name_detail"
+                      android:textSize="20dp"
+                      android:layout_marginTop="15dp"
+                      android:layout_marginBottom="5dp"/>
+            <TextView android:id="@+id/chore_description_detail"
                       android:layout_width="fill_parent"
                       android:layout_height="84dp"
-                      android:hint="@string/chore_add_hint_description"
-                      android:textColorHint="#797979"
-                      android:inputType="textMultiLine"
-                      android:lines="2"
-                      android:maxLines="2"
+                      android:textSize="16dp"
                       android:scrollbars="vertical"/>
         </LinearLayout>
     </LinearLayout>
@@ -68,7 +55,7 @@
                 android:padding="5dp"
                 android:gravity="center_horizontal"
                 android:background="@drawable/rectangle"
-                android:id="@+id/chore_due_date"
+                android:id="@+id/chore_due_date_detail"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"/>
 
@@ -78,8 +65,9 @@
 
         <Button android:id="@+id/add_chore"
                 android:layout_height="wrap_content"
-                android:text="@string/action_add_chore"
-                android:layout_width="match_parent"/>
+                android:text="@string/mark_as_done"
+                android:layout_width="match_parent"
+                android:onClick="markAsDone"/>
     </LinearLayout>
 
 </LinearLayout>

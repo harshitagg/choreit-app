@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.pineapps.choreit.ChoreItContext;
 import com.pineapps.choreit.R;
@@ -15,10 +17,12 @@ import com.pineapps.choreit.view.adapter.ChoreListAdapter;
 import java.util.List;
 
 public class HomeActivity extends Activity {
-    public static final int ADD_CHORE = 1;
+    public static final int UPDATE_LIST = 1;
+    public static final String CHORE_ID = "chore_id";
 
     private ChoreListAdapter choreListAdapter;
     private ChoreService choreService;
+    private List<Chore> choreList;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +31,27 @@ public class HomeActivity extends Activity {
         ChoreItContext context = ChoreItContext.getInstance();
         choreService = context.choreService();
 
-        ListView viewChores = (ListView) findViewById(R.id.listview);
-        List<Chore> choreList = choreService.getAllChoresSortedByDueDate();
+        initListView();
+    }
+
+    private void initListView() {
+        ListView choreListView = (ListView) findViewById(R.id.listview);
+        choreList = choreService.getAllUndoneChoresSortedByDueDate();
         choreListAdapter = new ChoreListAdapter(this, choreList);
-        viewChores.setAdapter(choreListAdapter);
+        choreListView.setAdapter(choreListAdapter);
+
+        choreListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                startChoreDetailActivity(choreList.get(position).id());
+            }
+        });
+    }
+
+    private void startChoreDetailActivity(String choreId) {
+        Intent intent = new Intent(this, ChoreDetailActivity.class);
+        intent.putExtra(CHORE_ID, choreId);
+        startActivityForResult(intent, UPDATE_LIST);
     }
 
     @Override
@@ -38,7 +59,7 @@ public class HomeActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.action_add_chore:
                 Intent choreIntent = new Intent(this, AddChoreActivity.class);
-                startActivityForResult(choreIntent, ADD_CHORE);
+                startActivityForResult(choreIntent, UPDATE_LIST);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -55,13 +76,13 @@ public class HomeActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ADD_CHORE) {
+        if (requestCode == UPDATE_LIST) {
             updateChoreList();
         }
     }
 
     private void updateChoreList() {
-        List<Chore> choreList = choreService.getAllChoresSortedByDueDate();
+        choreList = choreService.getAllUndoneChoresSortedByDueDate();
         choreListAdapter.setChoreList(choreList);
         choreListAdapter.notifyDataSetChanged();
     }

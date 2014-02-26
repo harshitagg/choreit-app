@@ -22,10 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.View.OnClickListener;
-import static com.pineapps.choreit.view.activity.HomeActivity.ADD_CHORE;
+import static com.pineapps.choreit.view.activity.HomeActivity.UPDATE_LIST;
 import static java.lang.String.valueOf;
 
 public class AddChoreActivity extends Activity {
+    public static final String DATE_FORMAT_PATTERN = "MMM d, y";
     private Spinner choresSpinner;
     private ChoreService choreService;
     private List<PredefinedChore> predefinedChoreList;
@@ -103,7 +104,7 @@ public class AddChoreActivity extends Activity {
                             valueOf(descriptionEditText.getText()), nextDay.toString());
                 }
                 Toast.makeText(getApplicationContext(), "Chore Created", Toast.LENGTH_SHORT).show();
-                activity.setResult(ADD_CHORE);
+                activity.setResult(UPDATE_LIST);
                 activity.finish();
             }
         });
@@ -111,7 +112,7 @@ public class AddChoreActivity extends Activity {
 
     private void initChoreDueDateTextView() {
         nextDay = LocalDate.now().plusDays(1);
-        dateTimeFormatter = DateTimeFormat.forPattern("MMM d, y");
+        dateTimeFormatter = DateTimeFormat.forPattern(DATE_FORMAT_PATTERN);
         choreDueDateTextView.setText("Due on: " + dateTimeFormatter.print(nextDay));
 
         choreDueDateTextView.setOnClickListener(new OnClickListener() {

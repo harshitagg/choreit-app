@@ -22,8 +22,8 @@ public class ChoreService {
         return choreRepository.getAll();
     }
 
-    public List<Chore> getAllChoresSortedByDueDate() {
-        List<Chore> choreList = choreRepository.getAll();
+    public List<Chore> getAllUndoneChoresSortedByDueDate() {
+        List<Chore> choreList = choreRepository.getAllUndoneChores();
         Collections.sort(choreList, new Comparator<Chore>() {
             @Override
             public int compare(Chore lhs, Chore rhs) {
@@ -38,5 +38,14 @@ public class ChoreService {
         });
 
         return choreList;
+    }
+
+    public Chore getChoreById(String choreId) {
+        return choreRepository.findByChoreId(choreId);
+    }
+
+    public void markChoreAsDone(Chore chore) {
+        chore.markAsDone();
+        choreRepository.update(chore);
     }
 }

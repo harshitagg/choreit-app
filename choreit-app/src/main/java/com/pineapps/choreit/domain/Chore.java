@@ -12,19 +12,22 @@ public class Chore {
     private String title;
     private String description;
     private String dueDate;
+    private boolean isDone;
 
     public Chore(String title, String description, String dueDate) {
         this.dueDate = dueDate;
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
+        this.isDone = false;
     }
 
-    public Chore(String id, String title, String description, String dueDate) {
+    public Chore(String id, String title, String description, String dueDate, boolean isDone) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
+        this.isDone = isDone;
     }
 
     public String id() {
@@ -43,8 +46,16 @@ public class Chore {
         return dueDate;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public LocalDate dueDateAsLocalDate() {
         return LocalDate.parse(dueDate);
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
     }
 
     @Override
