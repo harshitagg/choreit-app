@@ -13,6 +13,7 @@ public class Chore {
     private String description;
     private String dueDate;
     private boolean isDone;
+    private boolean isSynced;
 
     public Chore(String title, String description, String dueDate) {
         this.dueDate = dueDate;
@@ -20,14 +21,16 @@ public class Chore {
         this.title = title;
         this.description = description;
         this.isDone = false;
+        this.isSynced = false;
     }
 
-    public Chore(String id, String title, String description, String dueDate, boolean isDone) {
+    public Chore(String id, String title, String description, String dueDate, boolean isDone, boolean isSynced) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.isDone = isDone;
+        this.isSynced = isSynced;
     }
 
     public String id() {
@@ -56,6 +59,14 @@ public class Chore {
 
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    public boolean isSynced() {
+        return isSynced;
+    }
+
+    public void markAsSynced() {
+        this.isSynced = true;
     }
 
     @Override

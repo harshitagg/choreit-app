@@ -6,6 +6,7 @@ import com.pineapps.choreit.domain.Chore;
 import com.pineapps.choreit.repository.ChoreRepository;
 import com.pineapps.choreit.repository.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -21,17 +22,17 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldSaveChore() throws Exception {
-        choreRepository.insert(new Chore("id", "test", "description", "2014-01-01", false));
+        choreRepository.insert(new Chore("id", "test", "description", "2014-01-01", false, false));
 
         List<Chore> chores = choreRepository.getAll();
-        assertEquals(asList(new Chore("id", "test", "description", "2014-01-01", false)), chores);
+        assertEquals(asList(new Chore("id", "test", "description", "2014-01-01", false, false)), chores);
     }
 
     public void testShouldFetchAllChores() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false);
-        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", false);
-        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true);
-        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false);
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, true);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", false, false);
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true, true);
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false, false);
         choreRepository.insert(chore1);
         choreRepository.insert(chore2);
         choreRepository.insert(chore3);
@@ -43,8 +44,8 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldFindByChoreId() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false);
-        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", false);
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, true);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", false, false);
         choreRepository.insert(chore1);
         choreRepository.insert(chore2);
 
@@ -54,7 +55,7 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldUpdateChore() throws Exception {
-        Chore chore = new Chore("id 1", "title 1", "description 1", "2014-01-01", false);
+        Chore chore = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, false);
         choreRepository.insert(chore);
         chore.markAsDone();
 
@@ -65,10 +66,10 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldFetchAllUndoneChores() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false);
-        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", true);
-        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true);
-        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false);
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, true);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", true, false);
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true, true);
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false, false);
         choreRepository.insert(chore1);
         choreRepository.insert(chore2);
         choreRepository.insert(chore3);
@@ -77,5 +78,44 @@ public class ChoreRepositoryTest extends AndroidTestCase {
         List<Chore> allUndoneChores = choreRepository.getAllUndoneChores();
 
         assertEquals(asList(chore1, chore4), allUndoneChores);
+    }
+
+    public void testShouldFetchAllUnSyncedChores() throws Exception {
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, true);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", true, false);
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true, true);
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false, false);
+        choreRepository.insert(chore1);
+        choreRepository.insert(chore2);
+        choreRepository.insert(chore3);
+        choreRepository.insert(chore4);
+
+        List<Chore> pendingChores = choreRepository.getPendingChores();
+
+        assertEquals(asList(chore2, chore4), pendingChores);
+    }
+
+    public void testShouldMarkChoresAsSynced() throws Exception {
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, false);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", true, false);
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true, false);
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false, false);
+        List<Chore> chores = new ArrayList<Chore>();
+        chores.add(chore1);
+        chores.add(chore2);
+        chores.add(chore3);
+        chores.add(chore4);
+        choreRepository.insert(chore1);
+        choreRepository.insert(chore2);
+        choreRepository.insert(chore3);
+        choreRepository.insert(chore4);
+
+        choreRepository.markChoresAsSynced(chores);
+
+        chore1.markAsSynced();
+        chore2.markAsSynced();
+        chore3.markAsSynced();
+        chore4.markAsSynced();
+        assertEquals(asList(chore1, chore2, chore3, chore4), choreRepository.getAll());
     }
 }

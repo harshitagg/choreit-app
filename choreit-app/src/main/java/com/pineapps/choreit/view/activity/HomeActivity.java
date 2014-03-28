@@ -11,7 +11,10 @@ import android.widget.ListView;
 import com.pineapps.choreit.ChoreItContext;
 import com.pineapps.choreit.R;
 import com.pineapps.choreit.domain.Chore;
+import com.pineapps.choreit.domain.FetchStatus;
 import com.pineapps.choreit.service.ChoreService;
+import com.pineapps.choreit.sync.AfterFetchListener;
+import com.pineapps.choreit.sync.UpdateTask;
 import com.pineapps.choreit.view.adapter.ChoreListAdapter;
 
 import java.util.List;
@@ -23,12 +26,13 @@ public class HomeActivity extends Activity {
     private ChoreListAdapter choreListAdapter;
     private ChoreService choreService;
     private List<Chore> choreList;
+    private ChoreItContext context;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        ChoreItContext context = ChoreItContext.getInstance();
+        context = ChoreItContext.getInstance();
         choreService = context.choreService();
 
         initListView();
@@ -61,6 +65,9 @@ public class HomeActivity extends Activity {
                 Intent choreIntent = new Intent(this, AddChoreActivity.class);
                 startActivityForResult(choreIntent, UPDATE_LIST);
                 return true;
+            case R.id.action_refresh:
+                updateFromServer();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -85,5 +92,14 @@ public class HomeActivity extends Activity {
         choreList = choreService.getAllUndoneChoresSortedByDueDate();
         choreListAdapter.setChoreList(choreList);
         choreListAdapter.notifyDataSetChanged();
+    }
+
+    private void updateFromServer() {
+        UpdateTask updateTask = new UpdateTask(getApplicationContext(), context.choreSyncService());
+
+        updateTask.updateFromServer(new AfterFetchListener() {
+            public void afterFetch(FetchStatus status) {
+            }
+        });
     }
 }

@@ -17,13 +17,14 @@ public class ChoreRepository extends ChoreItRepository {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_DUE_DATE = "due_date";
     public static final String COLUMN_IS_DONE = "is_done";
+    public static final String COLUMN_IS_SYNCED = "is_synced";
 
     public static final String[] CHORE_COLUMNS = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DESCRIPTION,
-            COLUMN_DUE_DATE, COLUMN_IS_DONE};
+            COLUMN_DUE_DATE, COLUMN_IS_DONE, COLUMN_IS_SYNCED};
 
     public static final String CHORE_SQL = "CREATE TABLE " + CHORE_TABLE_NAME + "(" + COLUMN_ID + " VARCHAR, " +
             COLUMN_TITLE + " VARCHAR, " + COLUMN_DESCRIPTION + " VARCHAR, " + COLUMN_DUE_DATE + " VARCHAR, " +
-            COLUMN_IS_DONE + " VARCHAR)";
+            COLUMN_IS_DONE + " VARCHAR, " + COLUMN_IS_SYNCED + " VARCHAR)";
 
     @Override
     protected void onCreate(SQLiteDatabase database) {
@@ -69,6 +70,21 @@ public class ChoreRepository extends ChoreItRepository {
         return readAllChores(cursor);
     }
 
+    public List<Chore> getPendingChores() {
+        SQLiteDatabase db = masterRepository.getReadableDatabase();
+        Cursor cursor = db.query(CHORE_TABLE_NAME, CHORE_COLUMNS, COLUMN_IS_SYNCED + " = ?", new String[]{"false"},
+                null, null, null);
+        return readAllChores(cursor);
+    }
+
+    public void markChoresAsSynced(List<Chore> chores) {
+        SQLiteDatabase database = masterRepository.getWritableDatabase();
+        for (Chore chore : chores) {
+            chore.markAsSynced();
+            database.update(CHORE_TABLE_NAME, createContentValuesFor(chore), COLUMN_ID + " = ?", new String[]{chore.id()});
+        }
+    }
+
     private ContentValues createContentValuesFor(Chore chore) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, chore.id());
@@ -76,6 +92,7 @@ public class ChoreRepository extends ChoreItRepository {
         values.put(COLUMN_DESCRIPTION, chore.description());
         values.put(COLUMN_DUE_DATE, chore.dueDate());
         values.put(COLUMN_IS_DONE, Boolean.toString(chore.isDone()));
+        values.put(COLUMN_IS_SYNCED, Boolean.toString(chore.isSynced()));
         return values;
     }
 
@@ -89,7 +106,8 @@ public class ChoreRepository extends ChoreItRepository {
                     cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_DUE_DATE)),
-                    valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_IS_DONE)))
+                    valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_IS_DONE))),
+                    valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_IS_SYNCED)))
             ));
             cursor.moveToNext();
         }

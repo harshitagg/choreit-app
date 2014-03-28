@@ -6,6 +6,8 @@ import com.pineapps.choreit.repository.ChoreRepository;
 import com.pineapps.choreit.repository.PredefinedChoreRepository;
 import com.pineapps.choreit.repository.Repository;
 import com.pineapps.choreit.service.ChoreService;
+import com.pineapps.choreit.service.ChoreSyncService;
+import com.pineapps.choreit.service.HTTPAgent;
 import com.pineapps.choreit.service.PredefinedChoreService;
 import com.pineapps.choreit.view.ChoreIconMap;
 
@@ -20,8 +22,10 @@ public class ChoreItContext {
 
     private ChoreService choreService;
     private PredefinedChoreService predefinedChoreService;
+    private ChoreSyncService choreSyncService;
 
     private ChoreIconMap choreIconMap;
+    private HTTPAgent httpAgent;
 
     public static ChoreItContext getInstance() {
         if (choreItContext == null) {
@@ -70,6 +74,14 @@ public class ChoreItContext {
         return predefinedChoreService;
     }
 
+    public ChoreSyncService choreSyncService() {
+        initRepository();
+        if (choreSyncService == null) {
+            choreSyncService = new ChoreSyncService(choreRepository(), httpAgent());
+        }
+        return choreSyncService;
+    }
+
     private ChoreRepository choreRepository() {
         if (choreRepository == null) {
             choreRepository = new ChoreRepository();
@@ -85,4 +97,13 @@ public class ChoreItContext {
 
         return predefinedChoreRepository;
     }
+
+    private HTTPAgent httpAgent() {
+        initRepository();
+        if (httpAgent == null) {
+            httpAgent = new HTTPAgent();
+        }
+        return httpAgent;
+    }
+
 }
