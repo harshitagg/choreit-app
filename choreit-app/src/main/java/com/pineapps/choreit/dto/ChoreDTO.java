@@ -19,7 +19,6 @@ public class ChoreDTO {
         this.is_done = is_done;
     }
 
-
     @Override
     public boolean equals(Object o) {
         return EqualsBuilder.reflectionEquals(this, o);
