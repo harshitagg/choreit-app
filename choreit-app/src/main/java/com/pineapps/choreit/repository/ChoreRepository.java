@@ -11,13 +11,13 @@ import java.util.List;
 import static java.lang.Boolean.valueOf;
 
 public class ChoreRepository extends ChoreItRepository {
-    public static final String CHORE_TABLE_NAME = "chore";
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_DESCRIPTION = "description";
-    public static final String COLUMN_DUE_DATE = "due_date";
-    public static final String COLUMN_IS_DONE = "is_done";
-    public static final String COLUMN_IS_SYNCED = "is_synced";
+    private static final String CHORE_TABLE_NAME = "chore";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_DUE_DATE = "due_date";
+    private static final String COLUMN_IS_DONE = "is_done";
+    private static final String COLUMN_IS_SYNCED = "is_synced";
 
     public static final String[] CHORE_COLUMNS = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DESCRIPTION,
             COLUMN_DUE_DATE, COLUMN_IS_DONE, COLUMN_IS_SYNCED};

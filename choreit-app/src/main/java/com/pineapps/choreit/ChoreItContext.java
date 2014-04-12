@@ -5,10 +5,8 @@ import com.pineapps.choreit.domain.PredefinedChore;
 import com.pineapps.choreit.repository.ChoreRepository;
 import com.pineapps.choreit.repository.PredefinedChoreRepository;
 import com.pineapps.choreit.repository.Repository;
-import com.pineapps.choreit.service.ChoreService;
-import com.pineapps.choreit.service.ChoreSyncService;
-import com.pineapps.choreit.service.HTTPAgent;
-import com.pineapps.choreit.service.PredefinedChoreService;
+import com.pineapps.choreit.repository.UserRepository;
+import com.pineapps.choreit.service.*;
 import com.pineapps.choreit.view.ChoreIconMap;
 
 public class ChoreItContext {
@@ -19,9 +17,11 @@ public class ChoreItContext {
     private Repository repository;
     private ChoreRepository choreRepository;
     private PredefinedChoreRepository predefinedChoreRepository;
+    private UserRepository userRepository;
 
     private ChoreService choreService;
     private PredefinedChoreService predefinedChoreService;
+    private UserService userService;
     private ChoreSyncService choreSyncService;
 
     private ChoreIconMap choreIconMap;
@@ -50,7 +50,7 @@ public class ChoreItContext {
 
     public Repository initRepository() {
         if (repository == null) {
-            repository = new Repository(context, choreRepository(), predefinedChoreRepository());
+            repository = new Repository(context, choreRepository(), predefinedChoreRepository(), userRepository());
         }
 
         return repository;
@@ -72,6 +72,15 @@ public class ChoreItContext {
         }
 
         return predefinedChoreService;
+    }
+
+    public UserService userService() {
+        initRepository();
+        if (userService == null) {
+            userService = new UserService(userRepository());
+        }
+
+        return userService;
     }
 
     public ChoreSyncService choreSyncService() {
@@ -96,6 +105,14 @@ public class ChoreItContext {
         }
 
         return predefinedChoreRepository;
+    }
+
+    private UserRepository userRepository() {
+        if (userRepository == null) {
+            userRepository = new UserRepository();
+        }
+
+        return userRepository;
     }
 
     private HTTPAgent httpAgent() {
