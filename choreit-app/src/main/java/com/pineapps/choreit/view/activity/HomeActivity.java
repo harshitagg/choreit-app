@@ -68,6 +68,10 @@ public class HomeActivity extends Activity {
             case R.id.action_refresh:
                 updateFromServer();
                 return true;
+            case R.id.action_add_person:
+                Intent userChoreIntent = new Intent(this, AddUserActivity.class);
+                startActivityForResult(userChoreIntent, UPDATE_LIST);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
