@@ -6,9 +6,10 @@ import com.pineapps.choreit.domain.Group;
 import com.pineapps.choreit.domain.User;
 import com.pineapps.choreit.repository.GroupRepository;
 import com.pineapps.choreit.repository.Repository;
-import com.pineapps.choreit.repository.UserRepository;
+import com.pineapps.choreit.util.Session;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -19,7 +20,8 @@ public class GroupRepositoryTest extends AndroidTestCase {
     @Override
     protected void setUp() throws Exception {
         groupRepository = new GroupRepository();
-        new Repository(new RenamingDelegatingContext(getContext(), "test_"), groupRepository);
+        Session session = new Session().setPassword("password").setRepositoryName("choreit.db" + new Date().getTime());
+        new Repository(new RenamingDelegatingContext(getContext(), "test_"), session, groupRepository);
         groupRepository.deleteAllGroups();
     }
 

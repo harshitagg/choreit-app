@@ -16,8 +16,16 @@
     <properties>
         <platform.version>4.1.2_r4</platform.version>
         <android.plugin.version>3.8.1</android.plugin.version>
+        <main.basedir>${project.basedir}</main.basedir>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>choreit.local</id>
+            <name>choreit</name>
+            <url>file:${main.basedir}/libs/</url>
+        </repository>
+    </repositories>
     <dependencyManagement>
         <dependencies>
             <dependency>

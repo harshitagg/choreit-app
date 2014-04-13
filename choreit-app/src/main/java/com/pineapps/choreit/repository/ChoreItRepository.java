@@ -1,6 +1,6 @@
 package com.pineapps.choreit.repository;
 
-import android.database.sqlite.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteDatabase;
 
 public abstract class ChoreItRepository {
     Repository masterRepository;

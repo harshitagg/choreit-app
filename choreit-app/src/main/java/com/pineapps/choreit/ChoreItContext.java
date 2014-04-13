@@ -1,15 +1,16 @@
 package com.pineapps.choreit;
 
 import android.content.Context;
-import com.pineapps.choreit.domain.PredefinedChore;
 import com.pineapps.choreit.repository.*;
 import com.pineapps.choreit.service.*;
+import com.pineapps.choreit.util.Session;
 import com.pineapps.choreit.view.ChoreIconMap;
 
 public class ChoreItContext {
     private static ChoreItContext choreItContext;
 
     private Context context;
+    private Session session;
 
     private Repository repository;
     private ChoreRepository choreRepository;
@@ -47,9 +48,17 @@ public class ChoreItContext {
         return choreIconMap;
     }
 
+    public Session session() {
+        if (session == null) {
+            session = new Session();
+        }
+        return session;
+    }
+
     public Repository initRepository() {
         if (repository == null) {
-            repository = new Repository(context, choreRepository(), predefinedChoreRepository(), userRepository(),
+            repository = new Repository(context, session(),
+                    choreRepository(), predefinedChoreRepository(), userRepository(),
                     groupRepository());
         }
 

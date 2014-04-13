@@ -2,11 +2,11 @@ package com.pineapps.choreit.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pineapps.choreit.domain.Group;
 import com.pineapps.choreit.domain.User;
+import net.sqlcipher.database.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,8 +13,11 @@
     <artifactId>choreit-app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>apk</packaging>
-
     <name>choreit-app - Application</name>
+
+    <properties>
+        <main.basedir>${project.basedir}/..</main.basedir>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -53,6 +56,42 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>r09</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sqlcipher</groupId>
+            <artifactId>sqlcipher</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sqlcipher</groupId>
+            <artifactId>libdatabase_sqlcipher</artifactId>
+            <version>3.0.2</version>
+            <scope>runtime</scope>
+            <type>so</type>
+        </dependency>
+        <dependency>
+            <groupId>net.sqlcipher</groupId>
+            <artifactId>libsqlcipher_android</artifactId>
+            <version>3.0.2</version>
+            <scope>runtime</scope>
+            <type>so</type>
+        </dependency>
+        <dependency>
+            <groupId>net.sqlcipher</groupId>
+            <artifactId>libstlport_shared</artifactId>
+            <version>3.0.2</version>
+            <scope>runtime</scope>
+            <type>so</type>
         </dependency>
     </dependencies>
     <build>

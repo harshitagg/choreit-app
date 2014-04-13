@@ -8,12 +8,17 @@ import android.view.View;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
+import com.pineapps.choreit.ChoreItContext;
 import com.pineapps.choreit.R;
 
 import static android.view.View.*;
 import static com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import static com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import static com.google.android.gms.plus.Plus.PeopleApi;
 
 public class LoginActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener,
         OnClickListener {
@@ -96,10 +101,16 @@ public class LoginActivity extends Activity implements ConnectionCallbacks, OnCo
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        mSignInClicked = false;
-        Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        if (PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+            mSignInClicked = false;
+
+            Person currentPerson = PeopleApi.getCurrentPerson(mGoogleApiClient);
+            ChoreItContext.getInstance().session().setPassword(currentPerson.getId());
+
+            Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 
     protected void onActivityResult(int requestCode, int responseCode, Intent intent) {

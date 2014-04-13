@@ -5,8 +5,10 @@ import android.test.RenamingDelegatingContext;
 import com.pineapps.choreit.domain.Chore;
 import com.pineapps.choreit.repository.ChoreRepository;
 import com.pineapps.choreit.repository.Repository;
+import com.pineapps.choreit.util.Session;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -17,7 +19,8 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     @Override
     protected void setUp() throws Exception {
         choreRepository = new ChoreRepository();
-        new Repository(new RenamingDelegatingContext(getContext(), "test_"), choreRepository);
+        Session session = new Session().setPassword("password").setRepositoryName("choreit.db" + new Date().getTime());
+        new Repository(new RenamingDelegatingContext(getContext(), "test_"), session, choreRepository);
         choreRepository.deleteAllChores();
     }
 

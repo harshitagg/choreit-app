@@ -2,8 +2,8 @@ package com.pineapps.choreit.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import com.pineapps.choreit.domain.Chore;
+import net.sqlcipher.database.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
