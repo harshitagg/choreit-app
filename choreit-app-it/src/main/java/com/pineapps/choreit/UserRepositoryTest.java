@@ -70,9 +70,9 @@ public class UserRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldMarkUsersAsSynced() throws Exception {
-        User user1 = new User("name 1", "email-id 1", true);
+        User user1 = new User("name 1", "email-id 1", false);
         User user2 = new User("name 2", "email-id 2", false);
-        User user3 = new User("name 3", "email-id 3", true);
+        User user3 = new User("name 3", "email-id 3", false);
         User user4 = new User("name 4", "email-id 4", false);
         ArrayList<User> users = new ArrayList<User>();
         users.add(user1);

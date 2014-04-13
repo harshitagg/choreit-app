@@ -22,7 +22,7 @@ public class ChoreRepository extends ChoreItRepository {
     public static final String[] CHORE_COLUMNS = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DESCRIPTION,
             COLUMN_DUE_DATE, COLUMN_IS_DONE, COLUMN_IS_SYNCED};
 
-    public static final String CHORE_SQL = "CREATE TABLE " + CHORE_TABLE_NAME + "(" + COLUMN_ID + " VARCHAR, " +
+    public static final String CHORE_SQL = "CREATE TABLE " + CHORE_TABLE_NAME + "(" + COLUMN_ID + " VARCHAR PRIMARY KEY, " +
             COLUMN_TITLE + " VARCHAR, " + COLUMN_DESCRIPTION + " VARCHAR, " + COLUMN_DUE_DATE + " VARCHAR, " +
             COLUMN_IS_DONE + " VARCHAR, " + COLUMN_IS_SYNCED + " VARCHAR)";
 

@@ -2,10 +2,7 @@ package com.pineapps.choreit;
 
 import android.content.Context;
 import com.pineapps.choreit.domain.PredefinedChore;
-import com.pineapps.choreit.repository.ChoreRepository;
-import com.pineapps.choreit.repository.PredefinedChoreRepository;
-import com.pineapps.choreit.repository.Repository;
-import com.pineapps.choreit.repository.UserRepository;
+import com.pineapps.choreit.repository.*;
 import com.pineapps.choreit.service.*;
 import com.pineapps.choreit.view.ChoreIconMap;
 
@@ -18,10 +15,12 @@ public class ChoreItContext {
     private ChoreRepository choreRepository;
     private PredefinedChoreRepository predefinedChoreRepository;
     private UserRepository userRepository;
+    private GroupRepository groupRepository;
 
     private ChoreService choreService;
     private PredefinedChoreService predefinedChoreService;
     private UserService userService;
+    private GroupService groupService;
     private ChoreSyncService choreSyncService;
 
     private ChoreIconMap choreIconMap;
@@ -50,7 +49,8 @@ public class ChoreItContext {
 
     public Repository initRepository() {
         if (repository == null) {
-            repository = new Repository(context, choreRepository(), predefinedChoreRepository(), userRepository());
+            repository = new Repository(context, choreRepository(), predefinedChoreRepository(), userRepository(),
+                    groupRepository());
         }
 
         return repository;
@@ -83,6 +83,15 @@ public class ChoreItContext {
         return userService;
     }
 
+    public GroupService groupService() {
+        initRepository();
+        if (groupService == null) {
+            groupService = new GroupService(groupRepository());
+        }
+
+        return groupService;
+    }
+
     public ChoreSyncService choreSyncService() {
         initRepository();
         if (choreSyncService == null) {
@@ -113,6 +122,14 @@ public class ChoreItContext {
         }
 
         return userRepository;
+    }
+
+    private GroupRepository groupRepository() {
+        if (groupRepository == null) {
+            groupRepository = new GroupRepository();
+        }
+
+        return groupRepository;
     }
 
     private HTTPAgent httpAgent() {
