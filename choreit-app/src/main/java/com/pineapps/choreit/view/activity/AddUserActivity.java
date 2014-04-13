@@ -6,10 +6,12 @@ import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import com.pineapps.choreit.R;
@@ -26,20 +28,20 @@ public class AddUserActivity extends Activity implements
                     ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
                     ContactsContract.Data.MIMETYPE,
                     ContactsContract.Data.DATA1,
-                    ContactsContract.Data.DATA15
+                    ContactsContract.CommonDataKinds.Photo.PHOTO_URI
             };
     @SuppressLint("InlinedApi")
     private final static String[] FROM_COLUMNS = {
             ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
             ContactsContract.CommonDataKinds.Email.ADDRESS,
-            ContactsContract.CommonDataKinds.Photo.PHOTO
+            ContactsContract.CommonDataKinds.Photo.PHOTO_URI
     };
     @SuppressLint("InlinedApi")
     private static final String SELECTION =
             ContactsContract.CommonDataKinds.Email.ADDRESS + " LIKE ? " + "AND " +
                     ContactsContract.Data.MIMETYPE + " = '" + ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE + "'";
 
-    private String searchString = new String("");
+    private String searchString = "";
     private String[] selectionArgs = {searchString};
 
     private final static int[] TO_IDS = {
@@ -59,8 +61,13 @@ public class AddUserActivity extends Activity implements
         simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.contacts_list_item, null, FROM_COLUMNS, TO_IDS, 0);
         simpleCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
-            public boolean setViewValue(View view, Cursor cursor, int i) {
+            public boolean setViewValue(View view, Cursor cursor, int columnId) {
                 if (view.getId() == R.id.user_thumb) {
+                    ImageView image = (ImageView) view;
+                    String str = cursor.getString(columnId);
+                    if (str != null) {
+                        image.setImageURI(Uri.parse(str));
+                    }
                     return true;
                 }
                 return false;

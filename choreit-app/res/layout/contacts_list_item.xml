@@ -5,13 +5,14 @@
                 android:padding="6dp">
 
     <ImageView android:id="@+id/user_thumb"
-               android:layout_width="wrap_content"
-               android:layout_height="fill_parent"
+               android:layout_width="50dip"
+               android:layout_height="50dip"
+               android:scaleType="centerCrop"
                android:layout_alignParentBottom="true"
                android:layout_alignParentTop="true"
                android:layout_alignParentLeft="true"
                android:layout_marginRight="10dip"
-               android:src="@drawable/general"/>
+               android:src="@drawable/ic_action_person"/>
     <LinearLayout
             android:orientation="horizontal"
             android:id="@+id/user_heading"
