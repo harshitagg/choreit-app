@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <EditText android:id="@+id/empty_user_email"
+              android:layout_width="fill_parent"
+              android:layout_height="50dp"
+              android:hint="@string/empty_user_email"
+              android:scrollHorizontally="true"
+              android:paddingLeft="15dip"
+              android:paddingRight="15dip"
+              android:singleLine="true"
+              android:textSize="16sp"
+              android:inputType="textEmailAddress"/>
+</LinearLayout>

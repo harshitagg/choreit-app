@@ -12,7 +12,8 @@
                android:layout_alignParentTop="true"
                android:layout_alignParentLeft="true"
                android:layout_marginRight="10dip"
-               android:src="@drawable/ic_action_person"/>
+               android:src="@drawable/ic_action_person"
+               android:contentDescription="@string/action_add_user"/>
     <LinearLayout
             android:orientation="horizontal"
             android:id="@+id/user_heading"
@@ -27,6 +28,12 @@
         <TextView android:id="@+id/user_entry"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
+                  android:ellipsize="marquee"
+                  android:marqueeRepeatLimit="marquee_forever"
+                  android:scrollHorizontally="true"
+                  android:paddingLeft="15dip"
+                  android:paddingRight="15dip"
+                  android:singleLine="true"
                   android:textSize="16sp"/>
 
     </LinearLayout>
@@ -38,6 +45,10 @@
               android:layout_alignParentRight="true"
               android:layout_toRightOf="@id/user_thumb"
               android:ellipsize="marquee"
+              android:marqueeRepeatLimit="marquee_forever"
+              android:scrollHorizontally="true"
+              android:paddingLeft="15dip"
+              android:paddingRight="15dip"
               android:singleLine="true"
               android:textSize="12sp"/>
 

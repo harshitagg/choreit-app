@@ -28,6 +28,7 @@
         <activity android:name=".view.activity.HomeActivity"/>
         <activity android:name=".view.activity.AddChoreActivity" android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".view.activity.ChoreDetailActivity"/>
-        <activity android:name=".view.activity.AddUserActivity"/>
+        <activity android:name=".view.activity.AddUserActivity"
+                  android:windowSoftInputMode="stateHidden"/>
     </application>
 </manifest>
