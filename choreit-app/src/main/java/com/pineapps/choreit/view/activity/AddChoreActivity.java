@@ -89,7 +89,7 @@ public class AddChoreActivity extends Activity {
                         return;
                     } else {
                         choreService.addChore(valueOf(newChoreTitle.getText()), valueOf(descriptionEditText.getText()),
-                                nextDay.toString());
+                                nextDay.toString(), null);
                         predefinedChoreService.addPredefinedChore(valueOf(newChoreTitle.getText()),
                                 valueOf(descriptionEditText.getText()));
                     }
@@ -101,7 +101,7 @@ public class AddChoreActivity extends Activity {
                     return;
                 } else {
                     choreService.addChore(valueOf(choresSpinner.getSelectedItem()),
-                            valueOf(descriptionEditText.getText()), nextDay.toString());
+                            valueOf(descriptionEditText.getText()), nextDay.toString(), null);
                 }
                 Toast.makeText(getApplicationContext(), "Chore Created", Toast.LENGTH_SHORT).show();
                 activity.setResult(UPDATE_LIST);

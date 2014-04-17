@@ -12,11 +12,13 @@ public class Chore {
     private String title;
     private String description;
     private String dueDate;
+    private String groupId;
     private boolean isDone;
     private boolean isSynced;
 
-    public Chore(String title, String description, String dueDate) {
+    public Chore(String title, String description, String dueDate, String groupId) {
         this.dueDate = dueDate;
+        this.groupId = groupId;
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
@@ -24,11 +26,12 @@ public class Chore {
         this.isSynced = false;
     }
 
-    public Chore(String id, String title, String description, String dueDate, boolean isDone, boolean isSynced) {
+    public Chore(String id, String title, String description, String dueDate, String groupId, boolean isDone, boolean isSynced) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
+        this.groupId = groupId;
         this.isDone = isDone;
         this.isSynced = isSynced;
     }
@@ -47,6 +50,10 @@ public class Chore {
 
     public String dueDate() {
         return dueDate;
+    }
+
+    public String groupId() {
+        return groupId;
     }
 
     public boolean isDone() {

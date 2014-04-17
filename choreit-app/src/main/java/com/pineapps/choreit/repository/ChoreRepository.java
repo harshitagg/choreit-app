@@ -16,15 +16,16 @@ public class ChoreRepository extends ChoreItRepository {
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_DUE_DATE = "due_date";
+    private static final String COLUMN_GROUP_ID = "group_id";
     private static final String COLUMN_IS_DONE = "is_done";
     private static final String COLUMN_IS_SYNCED = "is_synced";
 
     public static final String[] CHORE_COLUMNS = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DESCRIPTION,
-            COLUMN_DUE_DATE, COLUMN_IS_DONE, COLUMN_IS_SYNCED};
+            COLUMN_DUE_DATE, COLUMN_GROUP_ID, COLUMN_IS_DONE, COLUMN_IS_SYNCED};
 
     public static final String CHORE_SQL = "CREATE TABLE " + CHORE_TABLE_NAME + "(" + COLUMN_ID + " VARCHAR PRIMARY KEY, " +
             COLUMN_TITLE + " VARCHAR, " + COLUMN_DESCRIPTION + " VARCHAR, " + COLUMN_DUE_DATE + " VARCHAR, " +
-            COLUMN_IS_DONE + " VARCHAR, " + COLUMN_IS_SYNCED + " VARCHAR)";
+            COLUMN_GROUP_ID + " VARCHAR, " + COLUMN_IS_DONE + " VARCHAR, " + COLUMN_IS_SYNCED + " VARCHAR)";
 
     @Override
     protected void onCreate(SQLiteDatabase database) {
@@ -91,6 +92,7 @@ public class ChoreRepository extends ChoreItRepository {
         values.put(COLUMN_TITLE, chore.title());
         values.put(COLUMN_DESCRIPTION, chore.description());
         values.put(COLUMN_DUE_DATE, chore.dueDate());
+        values.put(COLUMN_GROUP_ID, chore.groupId());
         values.put(COLUMN_IS_DONE, Boolean.toString(chore.isDone()));
         values.put(COLUMN_IS_SYNCED, Boolean.toString(chore.isSynced()));
         return values;
@@ -106,6 +108,7 @@ public class ChoreRepository extends ChoreItRepository {
                     cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_DUE_DATE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_GROUP_ID)),
                     valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_IS_DONE))),
                     valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_IS_SYNCED)))
             ));

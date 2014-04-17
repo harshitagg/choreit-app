@@ -25,17 +25,17 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldSaveChore() throws Exception {
-        choreRepository.insert(new Chore("id", "test", "description", "2014-01-01", false, false));
+        choreRepository.insert(new Chore("id", "test", "description", "2014-01-01", "groupId", false, false));
 
         List<Chore> chores = choreRepository.getAll();
-        assertEquals(asList(new Chore("id", "test", "description", "2014-01-01", false, false)), chores);
+        assertEquals(asList(new Chore("id", "test", "description", "2014-01-01", "groupId", false, false)), chores);
     }
 
     public void testShouldFetchAllChores() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, true);
-        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", false, false);
-        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true, true);
-        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false, false);
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", "groupId 1", false, true);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", "groupId 2", false, false);
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", "groupId 3", true, true);
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", "groupId 4", false, false);
         choreRepository.insert(chore1);
         choreRepository.insert(chore2);
         choreRepository.insert(chore3);
@@ -47,8 +47,8 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldFindByChoreId() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, true);
-        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", false, false);
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", "groupId 1", false, true);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", "groupId 2", false, false);
         choreRepository.insert(chore1);
         choreRepository.insert(chore2);
 
@@ -58,7 +58,7 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldUpdateChore() throws Exception {
-        Chore chore = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, false);
+        Chore chore = new Chore("id 1", "title 1", "description 1", "2014-01-01", "groupId 1", false, false);
         choreRepository.insert(chore);
         chore.markAsDone();
 
@@ -69,10 +69,10 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldFetchAllUndoneChores() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, true);
-        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", true, false);
-        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true, true);
-        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false, false);
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", "groupId 1", false, true);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", "groupId 2", true, false);
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", "groupId 3", true, true);
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", "groupId 4", false, false);
         choreRepository.insert(chore1);
         choreRepository.insert(chore2);
         choreRepository.insert(chore3);
@@ -84,10 +84,10 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldFetchAllUnSyncedChores() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, true);
-        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", true, false);
-        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true, true);
-        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false, false);
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", "groupId 1", false, true);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", "groupId 2", true, false);
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", "groupId 3", true, true);
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", "groupId 4", false, false);
         choreRepository.insert(chore1);
         choreRepository.insert(chore2);
         choreRepository.insert(chore3);
@@ -99,10 +99,10 @@ public class ChoreRepositoryTest extends AndroidTestCase {
     }
 
     public void testShouldMarkChoresAsSynced() throws Exception {
-        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", false, false);
-        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", true, false);
-        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", true, false);
-        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", false, false);
+        Chore chore1 = new Chore("id 1", "title 1", "description 1", "2014-01-01", "groupId 1", false, false);
+        Chore chore2 = new Chore("id 2", "title 2", "description 2", "2014-01-01", "groupId 2", true, false);
+        Chore chore3 = new Chore("id 3", "title 3", "description 3", "2014-01-01", "groupId 3", true, false);
+        Chore chore4 = new Chore("id 4", "title 4", "description 4", "2014-01-01", "groupId 4", false, false);
         List<Chore> chores = new ArrayList<Chore>();
         chores.add(chore1);
         chores.add(chore2);

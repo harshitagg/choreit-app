@@ -14,8 +14,8 @@ public class ChoreService {
         this.choreRepository = choreRepository;
     }
 
-    public void addChore(String name, String description, String dueDate) {
-        choreRepository.insert(new Chore(name, description, dueDate));
+    public void addChore(String name, String description, String dueDate, String groupId) {
+        choreRepository.insert(new Chore(name, description, dueDate, groupId));
     }
 
     public List<Chore> getAllChores() {
