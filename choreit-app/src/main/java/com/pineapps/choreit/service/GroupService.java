@@ -21,7 +21,7 @@ public class GroupService {
         return groupRepository.getAll();
     }
 
-    public Group getUserById(String id) {
+    public Group getGroupById(String id) {
         return groupRepository.findByGroupId(id);
     }
 }

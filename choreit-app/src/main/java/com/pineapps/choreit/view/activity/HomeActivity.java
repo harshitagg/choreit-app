@@ -65,12 +65,12 @@ public class HomeActivity extends Activity {
                 Intent choreIntent = new Intent(this, AddChoreActivity.class);
                 startActivityForResult(choreIntent, UPDATE_LIST);
                 return true;
+            case R.id.action_add_group:
+                Intent groupIntent = new Intent(this, AddGroupActivity.class);
+                startActivity(groupIntent);
+                return true;
             case R.id.action_refresh:
                 updateFromServer();
-                return true;
-            case R.id.action_add_person:
-                Intent userChoreIntent = new Intent(this, AddUserActivity.class);
-                startActivityForResult(userChoreIntent, UPDATE_LIST);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

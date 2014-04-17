@@ -18,4 +18,6 @@
     <string name="no">No</string>
     <string name="action_add_user_confirmation">Add user confirmation</string>
     <string name="empty_user_email">Enter email here…</string>
+    <string name="add_new_group_hint">Enter group name...</string>
+    <string name="add_new_group_button">Add Group</string>
 </resources>

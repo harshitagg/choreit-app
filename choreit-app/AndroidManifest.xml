@@ -30,5 +30,7 @@
         <activity android:name=".view.activity.ChoreDetailActivity"/>
         <activity android:name=".view.activity.AddUserActivity"
                   android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".view.activity.AddGroupActivity"
+                  android:windowSoftInputMode="stateHidden"/>
     </application>
 </manifest>

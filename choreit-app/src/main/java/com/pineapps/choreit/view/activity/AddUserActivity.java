@@ -4,10 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
-import android.content.Context;
-import android.content.CursorLoader;
-import android.content.DialogInterface;
-import android.content.Loader;
+import android.content.*;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -35,6 +32,7 @@ public class AddUserActivity extends Activity implements
 
     private UserService userService;
     private Context curContext;
+    private ChoreItContext choreItContext;
     private LayoutInflater inflater;
     private MergeAdapter mergeAdapter;
     //TODO: Contacts support for < Honeycomb
@@ -81,7 +79,7 @@ public class AddUserActivity extends Activity implements
         actionBar.setTitle(R.string.action_add_user);
         setContentView(R.layout.contacts_list_view);
 
-        ChoreItContext choreItContext = ChoreItContext.getInstance();
+        choreItContext = ChoreItContext.getInstance();
         userService = choreItContext.userService();
 
         getLoaderManager().initLoader(0, null, this);
@@ -100,7 +98,6 @@ public class AddUserActivity extends Activity implements
         initMergeAdapter();
         initContactList();
         initUserSearch();
-
     }
 
     private void initUserSearch() {
@@ -115,7 +112,8 @@ public class AddUserActivity extends Activity implements
             @Override
             public boolean onQueryTextChange(String s) {
                 if (TextUtils.isEmpty(s)) {
-                    contactsList.clearTextFilter();
+                    userListAdapter.getFilter().filter("");
+                    oldUserAdapter.getFilter().filter("");
                 } else {
                     userListAdapter.getFilter().filter(s);
                     oldUserAdapter.getFilter().filter(s);
@@ -175,7 +173,6 @@ public class AddUserActivity extends Activity implements
     }
 
     private void initContactList() {
-        final Activity activity = this;
         contactsList.setEmptyView(findViewById(R.id.empty_user));
         View emptyView = contactsList.getEmptyView();
         emptyView.setOnClickListener(new View.OnClickListener() {
@@ -192,10 +189,10 @@ public class AddUserActivity extends Activity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String newUserEmail = userEmailView.getText().toString().toLowerCase();
+                        userEmailView.setEnabled(false);
                         userService.addUser(newUserName, newUserEmail);
-                        //TODO: Add to Group
                         Toast.makeText(getApplicationContext(), "New User Added to Group", Toast.LENGTH_SHORT).show();
-                        activity.finish();
+                        captureResult(newUserName, newUserEmail, false);
                     }
                 });
                 confirmationPrompt.setNegativeButton("Discard", null);
@@ -209,9 +206,11 @@ public class AddUserActivity extends Activity implements
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (view.findViewById(existing_user_entry) != null) {
-                    //TODO: Add to Group
-                    Toast.makeText(getApplicationContext(), "User Added To Group", Toast.LENGTH_SHORT).show();
-                    activity.finish();
+                    TextView userNameView = (TextView) view.findViewById(R.id.existing_user_entry);
+                    TextView userEmailView = (TextView) view.findViewById(R.id.existing_user_email);
+                    String existingUserName = userNameView.getText().toString();
+                    String existingUserEmail = userEmailView.getText().toString();
+                    captureResult(existingUserName, existingUserEmail, true);
                     return;
                 }
                 TextView userNameView = (TextView) view.findViewById(R.id.user_entry);
@@ -225,9 +224,8 @@ public class AddUserActivity extends Activity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         userService.addUser(userName, userEmail.toLowerCase());
-                        //TODO: Add to Group
                         Toast.makeText(getApplicationContext(), "New User Added To Group", Toast.LENGTH_SHORT).show();
-                        activity.finish();
+                        captureResult(userName, userEmail, false);
                     }
                 });
                 confirmationPrompt.setNegativeButton(R.string.no, null);
@@ -237,6 +235,15 @@ public class AddUserActivity extends Activity implements
         });
     }
 
+
+    public void captureResult(String name, String email, boolean existing) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("NAME", name);
+        resultIntent.putExtra("EMAIL", email);
+        resultIntent.putExtra("EXISTING", existing);
+        this.setResult(Activity.RESULT_OK, resultIntent);
+        this.finish();
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
