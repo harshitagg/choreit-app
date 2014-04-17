@@ -12,7 +12,7 @@
     <string name="select_chore">Select Chore</string>
     <string name="reset_spinner_option">Reset</string>
     <string name="mark_as_done">Mark as done</string>
-    <string name="user_search_hint">Type in an email…</string>
+    <string name="user_search_hint">Type in an email,name…</string>
     <string name="confirm_add_user">Are you sure you want to add this user?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>

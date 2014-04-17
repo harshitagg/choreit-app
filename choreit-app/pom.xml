@@ -93,6 +93,16 @@
             <scope>runtime</scope>
             <type>so</type>
         </dependency>
+        <dependency>
+            <groupId>com.commonsware.cwac</groupId>
+            <artifactId>sacklist</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.commonsware.cwac</groupId>
+            <artifactId>merge</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
