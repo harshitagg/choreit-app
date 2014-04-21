@@ -20,4 +20,5 @@
     <string name="empty_user_email">Enter email here…</string>
     <string name="add_new_group_hint">Enter group name...</string>
     <string name="add_new_group_button">Add Group</string>
+    <string name="group_spinner_hint">Select Group</string>
 </resources>

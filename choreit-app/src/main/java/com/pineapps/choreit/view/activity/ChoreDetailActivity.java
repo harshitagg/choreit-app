@@ -17,7 +17,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import static com.pineapps.choreit.view.activity.AddChoreActivity.DATE_FORMAT_PATTERN;
 import static com.pineapps.choreit.view.activity.HomeActivity.CHORE_ID;
-import static com.pineapps.choreit.view.activity.HomeActivity.UPDATE_LIST;
+import static com.pineapps.choreit.view.activity.HomeActivity.UPDATE_CHORE_LIST;
 
 public class ChoreDetailActivity extends Activity {
     private ChoreService choreService;
@@ -56,7 +56,7 @@ public class ChoreDetailActivity extends Activity {
     public void markAsDone(View view) {
         choreService.markChoreAsDone(chore);
         Toast.makeText(getApplicationContext(), "Chore completed", Toast.LENGTH_SHORT).show();
-        setResult(UPDATE_LIST);
+        setResult(UPDATE_CHORE_LIST);
         finish();
     }
 }

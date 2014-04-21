@@ -3,6 +3,7 @@ package com.pineapps.choreit.view.activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.View.OnClickListener;
-import static com.pineapps.choreit.view.activity.HomeActivity.UPDATE_LIST;
+import static com.pineapps.choreit.view.activity.HomeActivity.CURRENT_GROUP;
+import static com.pineapps.choreit.view.activity.HomeActivity.UPDATE_CHORE_LIST;
 import static java.lang.String.valueOf;
 
 public class AddChoreActivity extends Activity {
@@ -39,6 +41,7 @@ public class AddChoreActivity extends Activity {
     private TextView choreDueDateTextView;
     private LocalDate nextDay;
     private DateTimeFormatter dateTimeFormatter;
+    private String currentGroup;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,8 @@ public class AddChoreActivity extends Activity {
         actionBar.setTitle(R.string.action_add_chore);
 
         ChoreItContext choreItContext = ChoreItContext.getInstance();
+        Intent intent = getIntent();
+        currentGroup = intent.getStringExtra(CURRENT_GROUP);
 
         descriptionEditText = (EditText) findViewById(R.id.chore_description);
         newChoreTitle = (EditText) findViewById(R.id.chore_name_new);
@@ -89,7 +94,7 @@ public class AddChoreActivity extends Activity {
                         return;
                     } else {
                         choreService.addChore(valueOf(newChoreTitle.getText()), valueOf(descriptionEditText.getText()),
-                                nextDay.toString(), null);
+                                nextDay.toString(), currentGroup);
                         predefinedChoreService.addPredefinedChore(valueOf(newChoreTitle.getText()),
                                 valueOf(descriptionEditText.getText()));
                     }
@@ -101,10 +106,10 @@ public class AddChoreActivity extends Activity {
                     return;
                 } else {
                     choreService.addChore(valueOf(choresSpinner.getSelectedItem()),
-                            valueOf(descriptionEditText.getText()), nextDay.toString(), null);
+                            valueOf(descriptionEditText.getText()), nextDay.toString(), currentGroup);
                 }
                 Toast.makeText(getApplicationContext(), "Chore Created", Toast.LENGTH_SHORT).show();
-                activity.setResult(UPDATE_LIST);
+                activity.setResult(UPDATE_CHORE_LIST);
                 activity.finish();
             }
         });

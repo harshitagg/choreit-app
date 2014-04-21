@@ -14,7 +14,7 @@ import java.util.List;
 import static java.lang.Boolean.valueOf;
 
 public class GroupRepository extends ChoreItRepository {
-    private static final String GROUP_TABLE_NAME = "choreit_group";
+    public static final String GROUP_TABLE_NAME = "choreit_group";
     private static final String GROUP_COLUMN_ID = "id";
     private static final String GROUP_COLUMN_NAME = "name";
     private static final String GROUP_COLUMN_USERS = "users";

@@ -16,9 +16,12 @@ import com.pineapps.choreit.domain.Group;
 import com.pineapps.choreit.domain.User;
 import com.pineapps.choreit.service.GroupService;
 import com.pineapps.choreit.view.adapter.UserListAdapter;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.pineapps.choreit.view.activity.HomeActivity.UPDATE_GROUP_LIST;
 
 public class AddGroupActivity extends Activity {
     private static final int REQUEST_CODE = 1;
@@ -44,8 +47,13 @@ public class AddGroupActivity extends Activity {
         addGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (newGroupName.getText().toString().equals("")) {
+                String groupName = WordUtils.capitalizeFully(newGroupName.getText().toString());
+                if (groupName.equals("")) {
                     Toast.makeText(getApplicationContext(), "Group Name Cannot Be Blank", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (groupUserList.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Group Cannot Have 0 Users", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 List<Group> existingGroups = groupService.getAllGroups();
@@ -53,13 +61,14 @@ public class AddGroupActivity extends Activity {
                 for (Group existingGroup : existingGroups) {
                     existingGroupNames.add(existingGroup.name());
                 }
-                if (existingGroupNames.contains(newGroupName.getText().toString())) {
+                if (existingGroupNames.contains(groupName)) {
                     Toast.makeText(getApplicationContext(), "Group Already Exists", Toast.LENGTH_SHORT).show();
                     newGroupName.setText("");
                     return;
                 }
-                groupService.addGroup(newGroupName.getText().toString(), groupUserList);
+                groupService.addGroup(groupName, groupUserList);
                 Toast.makeText(getApplicationContext(), "New Group Added", Toast.LENGTH_SHORT).show();
+                activity.setResult(UPDATE_GROUP_LIST);
                 newGroupName.setEnabled(false);
                 activity.finish();
             }
@@ -102,6 +111,7 @@ public class AddGroupActivity extends Activity {
                     boolean isExistingUser = data.getBooleanExtra("EXISTING", false);
                     User newUser = new User(newUserName, newUserEmail);
                     if (isExistingUser) {
+                        // TODO: Change contains condition to check only on email(primary key)
                         if(groupUserList.contains(newUser)) {
                             Toast.makeText(getApplicationContext(), "User Already in Group", Toast.LENGTH_SHORT).show();
                             return;

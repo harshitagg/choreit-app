@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteOpenHelper;
 import java.io.File;
 
 import static com.pineapps.choreit.repository.PredefinedChoreRepository.PREDEFINED_CHORE_TABLE_NAME;
+import static com.pineapps.choreit.repository.GroupRepository.GROUP_TABLE_NAME;
 
 public class Repository extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
@@ -45,7 +46,14 @@ public class Repository extends SQLiteOpenHelper {
             if (choreItRepository.getClass() == PredefinedChoreRepository.class) {
                 createPredefinedChores(sqLiteDatabase);
             }
+            if (choreItRepository.getClass() == GroupRepository.class) {
+                createPersonalGroup(sqLiteDatabase);
+            }
         }
+    }
+
+    private void createPersonalGroup(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO " + GROUP_TABLE_NAME + " values ('0','Private Group','null','false')");
     }
 
     @Override

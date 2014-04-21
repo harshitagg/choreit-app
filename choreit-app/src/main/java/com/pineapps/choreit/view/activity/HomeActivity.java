@@ -8,25 +8,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import com.pineapps.choreit.ChoreItContext;
 import com.pineapps.choreit.R;
 import com.pineapps.choreit.domain.Chore;
 import com.pineapps.choreit.domain.FetchStatus;
+import com.pineapps.choreit.domain.Group;
 import com.pineapps.choreit.service.ChoreService;
+import com.pineapps.choreit.service.GroupService;
 import com.pineapps.choreit.sync.AfterFetchListener;
 import com.pineapps.choreit.sync.UpdateTask;
 import com.pineapps.choreit.view.adapter.ChoreListAdapter;
+import com.pineapps.choreit.view.adapter.GroupListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends Activity {
-    public static final int UPDATE_LIST = 1;
+    public static final int UPDATE_CHORE_LIST = 1;
+    public static final int UPDATE_GROUP_LIST = 2;
+    public static final String CURRENT_GROUP = "current_group";
     public static final String CHORE_ID = "chore_id";
 
+    private String currentGroup = "0";
     private ChoreListAdapter choreListAdapter;
     private ChoreService choreService;
+    private GroupService groupService;
     private List<Chore> choreList;
     private ChoreItContext context;
+    private List<Group> groupList;
+    private GroupListAdapter groupListAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +45,9 @@ public class HomeActivity extends Activity {
 
         context = ChoreItContext.getInstance();
         choreService = context.choreService();
+        groupService = context.groupService();
 
+        initGroupSpinner();
         initListView();
     }
 
@@ -55,7 +68,7 @@ public class HomeActivity extends Activity {
     private void startChoreDetailActivity(String choreId) {
         Intent intent = new Intent(this, ChoreDetailActivity.class);
         intent.putExtra(CHORE_ID, choreId);
-        startActivityForResult(intent, UPDATE_LIST);
+        startActivityForResult(intent, UPDATE_CHORE_LIST);
     }
 
     @Override
@@ -63,11 +76,12 @@ public class HomeActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.action_add_chore:
                 Intent choreIntent = new Intent(this, AddChoreActivity.class);
-                startActivityForResult(choreIntent, UPDATE_LIST);
+                choreIntent.putExtra(CURRENT_GROUP, currentGroup);
+                startActivityForResult(choreIntent, UPDATE_CHORE_LIST);
                 return true;
             case R.id.action_add_group:
                 Intent groupIntent = new Intent(this, AddGroupActivity.class);
-                startActivity(groupIntent);
+                startActivityForResult(groupIntent, UPDATE_GROUP_LIST);
                 return true;
             case R.id.action_refresh:
                 updateFromServer();
@@ -77,6 +91,24 @@ public class HomeActivity extends Activity {
         }
     }
 
+    private void initGroupSpinner() {
+        Spinner groupSpinner = (Spinner) findViewById(R.id.group_spinner);
+        groupListAdapter = new GroupListAdapter(this, groupList);
+        updateGroupList();
+        groupSpinner.setAdapter(groupListAdapter);
+        groupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                currentGroup = groupList.get(position).id();
+                updateChoreList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        groupSpinner.setSelection(groupListAdapter.getCount() - 1);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -87,13 +119,29 @@ public class HomeActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == UPDATE_LIST) {
+        if (requestCode == UPDATE_CHORE_LIST) {
             updateChoreList();
+        }
+        if (requestCode == UPDATE_GROUP_LIST) {
+            updateGroupList();
         }
     }
 
+    private void updateGroupList() {
+        groupList = groupService.getAllGroups();
+        groupListAdapter.setGroupList(groupList);
+        groupListAdapter.notifyDataSetChanged();
+    }
+
     private void updateChoreList() {
+        List<Chore> tmpList = new ArrayList<Chore>();
         choreList = choreService.getAllUndoneChoresSortedByDueDate();
+        for (Chore chore : choreList) {
+            if (chore.groupId().equals(currentGroup)) {
+                tmpList.add(chore);
+            }
+        }
+        choreList = tmpList;
         choreListAdapter.setChoreList(choreList);
         choreListAdapter.notifyDataSetChanged();
     }
