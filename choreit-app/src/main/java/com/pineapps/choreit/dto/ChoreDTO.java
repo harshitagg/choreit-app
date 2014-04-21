@@ -9,13 +9,15 @@ public class ChoreDTO {
     private final String title;
     private final String description;
     private final String due_date;
+    private final String group_id;
     private final boolean is_done;
 
-    public ChoreDTO(String chore_id, String title, String description, String due_date, boolean is_done) {
+    public ChoreDTO(String chore_id, String title, String description, String due_date, String group_id, boolean is_done) {
         this.chore_id = chore_id;
         this.title = title;
         this.description = description;
         this.due_date = due_date;
+        this.group_id = group_id;
         this.is_done = is_done;
     }
 

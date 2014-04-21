@@ -47,7 +47,7 @@ public class ChoreSyncService {
         List<ChoreDTO> choreDTOs = new ArrayList<ChoreDTO>();
         for (Chore pendingChore : pendingChores) {
             choreDTOs.add(new ChoreDTO(pendingChore.id(), pendingChore.title(), pendingChore.description(), pendingChore.dueDate(),
-                    pendingChore.isDone()));
+                    pendingChore.groupId(), pendingChore.isDone()));
         }
         return new Gson().toJson(choreDTOs);
     }
