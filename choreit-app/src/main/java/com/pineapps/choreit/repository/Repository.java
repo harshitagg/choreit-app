@@ -53,7 +53,7 @@ public class Repository extends SQLiteOpenHelper {
     }
 
     private void createPersonalGroup(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO " + GROUP_TABLE_NAME + " values ('0','Private Group','null','false')");
+        db.execSQL("INSERT INTO " + GROUP_TABLE_NAME + " values ('0','Private','null','false')");
     }
 
     @Override

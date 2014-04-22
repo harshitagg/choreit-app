@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.*;
 import com.pineapps.choreit.ChoreItContext;
 import com.pineapps.choreit.R;
+import com.pineapps.choreit.domain.Group;
 import com.pineapps.choreit.domain.PredefinedChore;
 import com.pineapps.choreit.service.ChoreService;
+import com.pineapps.choreit.service.GroupService;
 import com.pineapps.choreit.service.PredefinedChoreService;
 import com.pineapps.choreit.view.ChoreIconMap;
+import com.pineapps.choreit.view.adapter.GroupListAdapter;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -24,6 +27,7 @@ import java.util.List;
 
 import static android.view.View.OnClickListener;
 import static com.pineapps.choreit.view.activity.HomeActivity.CURRENT_GROUP;
+import static com.pineapps.choreit.view.activity.HomeActivity.CURRENT_GROUP_OFFSET;
 import static com.pineapps.choreit.view.activity.HomeActivity.UPDATE_CHORE_LIST;
 import static java.lang.String.valueOf;
 
@@ -42,6 +46,11 @@ public class AddChoreActivity extends Activity {
     private LocalDate nextDay;
     private DateTimeFormatter dateTimeFormatter;
     private String currentGroup;
+    private GroupListAdapter groupListAdapter;
+    private List<Group> groupList;
+    private GroupService groupService;
+    private int currentGroupOffsetInList;
+    private Spinner groupSpinner;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +62,7 @@ public class AddChoreActivity extends Activity {
         ChoreItContext choreItContext = ChoreItContext.getInstance();
         Intent intent = getIntent();
         currentGroup = intent.getStringExtra(CURRENT_GROUP);
+        currentGroupOffsetInList = intent.getIntExtra(CURRENT_GROUP_OFFSET, 0);
 
         descriptionEditText = (EditText) findViewById(R.id.chore_description);
         newChoreTitle = (EditText) findViewById(R.id.chore_name_new);
@@ -60,12 +70,38 @@ public class AddChoreActivity extends Activity {
         choreDueDateTextView = (TextView) findViewById(R.id.chore_due_date);
 
         choreService = choreItContext.choreService();
+        groupService = choreItContext.groupService();
         choreIconMap = choreItContext.choreIconMap();
 
         initPredefinedChores(choreItContext);
         initChoreSpinner();
         initAddChoreButton();
         initChoreDueDateTextView();
+        initEditGroupSpinner();
+    }
+
+    private void initEditGroupSpinner() {
+        groupSpinner = (Spinner) findViewById(R.id.edit_group_spinner);
+        groupListAdapter = new GroupListAdapter(this, groupList);
+        updateGroupList();
+        groupSpinner.setAdapter(groupListAdapter);
+        groupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                currentGroup = groupList.get(position).id();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        groupSpinner.setSelection(currentGroupOffsetInList);
+    }
+
+    private void updateGroupList() {
+        groupList = groupService.getAllGroups();
+        groupListAdapter.setGroupList(groupList);
+        groupListAdapter.notifyDataSetChanged();
     }
 
     private void initPredefinedChores(ChoreItContext choreItContext) {
@@ -135,6 +171,7 @@ public class AddChoreActivity extends Activity {
                 newChoreTitle.setVisibility(View.GONE);
                 choresSpinner.setVisibility(View.VISIBLE);
                 choresSpinner.setSelection(0);
+                groupSpinner.setSelection(currentGroupOffsetInList);
                 descriptionEditText.setText("");
             default:
                 return super.onOptionsItemSelected(item);

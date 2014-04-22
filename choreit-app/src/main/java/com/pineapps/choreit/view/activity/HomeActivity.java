@@ -28,9 +28,11 @@ public class HomeActivity extends Activity {
     public static final int UPDATE_CHORE_LIST = 1;
     public static final int UPDATE_GROUP_LIST = 2;
     public static final String CURRENT_GROUP = "current_group";
+    public static final String CURRENT_GROUP_OFFSET = "current_group_offset";
     public static final String CHORE_ID = "chore_id";
 
     private String currentGroup = "0";
+    private int getCurrentGroupOffsetInList = 0;
     private ChoreListAdapter choreListAdapter;
     private ChoreService choreService;
     private GroupService groupService;
@@ -77,6 +79,7 @@ public class HomeActivity extends Activity {
             case R.id.action_add_chore:
                 Intent choreIntent = new Intent(this, AddChoreActivity.class);
                 choreIntent.putExtra(CURRENT_GROUP, currentGroup);
+                choreIntent.putExtra(CURRENT_GROUP_OFFSET, getCurrentGroupOffsetInList);
                 startActivityForResult(choreIntent, UPDATE_CHORE_LIST);
                 return true;
             case R.id.action_add_group:
@@ -100,6 +103,7 @@ public class HomeActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 currentGroup = groupList.get(position).id();
+                getCurrentGroupOffsetInList = position;
                 updateChoreList();
             }
 
@@ -107,8 +111,9 @@ public class HomeActivity extends Activity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-        groupSpinner.setSelection(groupListAdapter.getCount() - 1);
+        groupSpinner.setSelection(0);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
